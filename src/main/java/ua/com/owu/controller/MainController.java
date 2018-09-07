@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
-import ua.com.owu.service.UserService;
 import ua.com.owu.service.userService.UserService;
 
 import ua.com.owu.utils.UserEditor;
