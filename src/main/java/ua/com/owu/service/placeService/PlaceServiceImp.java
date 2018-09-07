@@ -1,4 +1,4 @@
-package ua.com.owu.service;
+package ua.com.owu.service.placeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.PlaceDAO;
 import ua.com.owu.models.Event;
 import ua.com.owu.models.Place;
+import ua.com.owu.service.placeService.PlaceService;
+
 @Service
 @Transactional
 public class PlaceServiceImp implements PlaceService {

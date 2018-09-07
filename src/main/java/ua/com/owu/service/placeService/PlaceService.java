@@ -1,4 +1,4 @@
-package ua.com.owu.service;
+package ua.com.owu.service.placeService;
 
 import ua.com.owu.models.Event;
 import ua.com.owu.models.Place;

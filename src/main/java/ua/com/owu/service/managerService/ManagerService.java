@@ -1,4 +1,4 @@
-package ua.com.owu.service;
+package ua.com.owu.service.managerService;
 
 import ua.com.owu.models.Manager;
 
