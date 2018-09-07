@@ -6,6 +6,8 @@ import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import ua.com.owu.models.Manager;
+import ua.com.owu.models.User;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -20,6 +22,26 @@ public class MailServiceImpl implements MailService {
         MimeMessageHelper messageHelper = new MimeMessageHelper(message);
         messageHelper.setText(text);
         messageHelper.setSubject(subject);
+        messageHelper.setTo(email);
+        mailSender.send(message);
+    }
+
+    @Override
+    public void sendConfirmMessage(String email, User user) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://project.com/"+user.getToken()+"\">Please confirm your email!</a>");
+        messageHelper.setSubject("Confirm your email!");
+        messageHelper.setTo(email);
+        mailSender.send(message);
+    }
+
+    @Override
+    public void sendConfirmMessage(String email, Manager manager) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+        messageHelper.setText("<h2>Nice to meet you "+ manager.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://project.com/"+manager.getToken()+"\">Please confirm your email!</a>");
+        messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
         mailSender.send(message);
     }

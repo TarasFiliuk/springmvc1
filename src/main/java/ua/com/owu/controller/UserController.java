@@ -5,6 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.owu.models.User;
@@ -13,7 +14,11 @@ import ua.com.owu.service.userService.UserService;
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
+import javax.mail.MessagingException;
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -45,44 +50,41 @@ public class UserController {
     public String save(User user,
                        BindingResult bindingResult,
                        Model model
-            /*@RequestParam MultipartFile file*/
     ) throws IOException {
-//        String username = user.getUsername();
-//        String path = System.getProperty("user.dir")
-//                + File.separator
-//                + "src"
-//                + File.separator
-//                + "main"
-//                + File.separator
-//                + "resources"
-//                + File.separator
-//                + "static"
-//                + File.separator;
-//
-//        File filename = new File(path
-//                + user.getUsername()
-//                + new Date().getTime()
-//                + file.getOriginalFilename());
-//        file.transferTo(filename);
-
-        //user.setImage(filename.getName());
+        String username = user.getUsername();
+        String path = System.getProperty("user.dir")
+                + File.separator
+                + "src"
+                + File.separator
+                + "main"
+                + File.separator
+                + "resources"
+                + File.separator
+                + "static"
+                + File.separator;
 
 
-//        personValidator.validate(user,bindingResult);
-//        if (bindingResult.hasErrors()) {
-//
-//            String errorMessage = "";
-//            List<ObjectError> allErrors = bindingResult.getAllErrors();
-//            for (ObjectError allError : allErrors) {
-//                String code = allError.getCode();
-//                errorMessage += " " + environment.getProperty(code);
-//            }
-//
-//            model.addAttribute("error",errorMessage);
-//            return "index";
-//        }
+        userValidator.validate(user,bindingResult);
+
+        if (bindingResult.hasErrors()) {
+
+            String errorMessage = "";
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError allError : allErrors) {
+                String code = allError.getCode();
+                errorMessage += " " + environment.getProperty(code);
+            }
+
+            model.addAttribute("error" , errorMessage);
+            return "index";
+        }
 
 
+        try {
+            mailService.sendConfirmMessage(user.getEmail(), user);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         userEditor.setValue(user);
         userService.save(user);
 
