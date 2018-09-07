@@ -7,6 +7,9 @@
           <element id="module-output" name="springmvc" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.10" />
+          <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.jodatime:2.0.1" />
+          <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.spi:2.0.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.0.1" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />

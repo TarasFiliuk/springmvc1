@@ -1,5 +1,8 @@
 package ua.com.owu.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +13,12 @@ public class UserOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
 
-    private Date date;
+    @Column
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime start;
+    @Column
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime end;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private User user;
