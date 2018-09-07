@@ -27,12 +27,10 @@ public class MainController {
     @Autowired
     private Environment environment;
 
-
-    @Autowired
-    private UserService userService;
-
     @Autowired
     private MailService mailService;
+
+
 
 
     @GetMapping("/")
@@ -56,67 +54,6 @@ public class MainController {
         }
 
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-
-
-    @Autowired
-    private UserEditor userEditor;
-
-    @Autowired
-    UserValidator userValidator;
-
-    @PostMapping("/save")
-    public String save(User user,
-                       BindingResult bindingResult,
-                       Model model
-            /*@RequestParam MultipartFile file*/
-    ) throws IOException {
-//        String username = user.getUsername();
-//        String path = System.getProperty("user.dir")
-//                + File.separator
-//                + "src"
-//                + File.separator
-//                + "main"
-//                + File.separator
-//                + "resources"
-//                + File.separator
-//                + "static"
-//                + File.separator;
-//
-//        File filename = new File(path
-//                + user.getUsername()
-//                + new Date().getTime()
-//                + file.getOriginalFilename());
-//        file.transferTo(filename);
-
-        //user.setImage(filename.getName());
-
-
-//        personValidator.validate(user,bindingResult);
-//        if (bindingResult.hasErrors()) {
-//
-//            String errorMessage = "";
-//            List<ObjectError> allErrors = bindingResult.getAllErrors();
-//            for (ObjectError allError : allErrors) {
-//                String code = allError.getCode();
-//                errorMessage += " " + environment.getProperty(code);
-//            }
-//
-//            model.addAttribute("error",errorMessage);
-//            return "index";
-//        }
-
-
-        userEditor.setValue(user);
-        userService.save(user);
-
-
-        return "redirect:/login";
-    }
 
 
     @GetMapping("/times")
