@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.User;
+import ua.com.owu.service.MailService;
 import ua.com.owu.service.UserService;
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 @Controller
@@ -27,6 +29,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
 
     @GetMapping("/")
@@ -137,6 +142,22 @@ public class MainController {
         System.out.println(endTime);
         System.out.println(interval1.gap(interval));
         return "redirect:/times";
+    }
+
+    @PostMapping("/sentMail")
+    public String sentMail(
+            @RequestParam String email,
+            @RequestParam String subject,
+            @RequestParam String message
+
+    ){
+        try {
+            mailService.sendSimpleMessage(email, subject, message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/";
     }
 
 
