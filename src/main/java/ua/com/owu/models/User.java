@@ -24,6 +24,45 @@ public class User implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
+    private String firstName;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    private String lastName;
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    @Column(unique = true)
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    @Column(unique = true)
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
      private List<UserOrder> userOrders;
@@ -106,7 +145,7 @@ public class User implements UserDetails {
     }
 
 
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
     @Override
     public boolean isEnabled() {
         return isEnabled;

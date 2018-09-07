@@ -16,6 +16,7 @@ public class Manager implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     public int getId() {
         return id;
     }
@@ -23,7 +24,17 @@ public class Manager implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
+    @Column(unique = true)
+    private String token;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    @Column(unique = true)
     private String email;
 
 
