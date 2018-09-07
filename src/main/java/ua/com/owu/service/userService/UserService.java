@@ -1,4 +1,4 @@
-package ua.com.owu.service;
+package ua.com.owu.service.userService;
 
 
 import org.springframework.security.core.userdetails.UserDetailsService;

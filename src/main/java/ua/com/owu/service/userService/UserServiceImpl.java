@@ -1,4 +1,4 @@
-package ua.com.owu.service;
+package ua.com.owu.service.userService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.UserDAO;
 import ua.com.owu.models.User;
+import ua.com.owu.service.userService.UserService;
 
 import java.util.List;
 import java.util.Optional;

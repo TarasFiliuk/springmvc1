@@ -26,7 +26,7 @@ public class User implements UserDetails {
     }
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
-   private List<UserOrder> userOrders;
+     private List<UserOrder> userOrders;
 
     public List<UserOrder> getUserOrders() {
         return userOrders;
