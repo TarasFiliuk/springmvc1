@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,6 +15,9 @@
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
 </form>
+<h1>cvszvdfvdf</h1>
+
+<p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>
 
 <a th:href="@{/times}">TIMES</a>
 
