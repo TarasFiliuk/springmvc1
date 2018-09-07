@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.User;
-import ua.com.owu.service.UserService;
+import ua.com.owu.service.UserServis.UserService;
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
