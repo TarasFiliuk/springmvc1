@@ -14,13 +14,24 @@ public class Admin implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int adminId;
+    @Column(unique = true)
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public int getId() {
         return adminId;
     }
     public void setId(int id) {
         this.adminId = id;
     }
-
+    @Column(unique = true)
     private String email;
 
     public String getEmail() {
