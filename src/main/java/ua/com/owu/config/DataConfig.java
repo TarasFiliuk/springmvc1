@@ -25,7 +25,7 @@ public class DataConfig {
     public DataSource dataSource(){
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/projectDB?createDatabaseIfNotExist=true");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/projectDataBase?createDatabaseIfNotExist=true");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("root");
 
@@ -59,7 +59,7 @@ public class DataConfig {
         factoryBean.setJpaVendorAdapter(vendorAdapter());
         factoryBean.setPackagesToScan("ua.com.owu.models");
         Properties properties = new Properties();
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }
