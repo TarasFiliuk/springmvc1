@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    @Qualifier("userServiceImpl")
+    @Qualifier("accountServiceImpl")
     UserDetailsService userDetailsService;
 
 

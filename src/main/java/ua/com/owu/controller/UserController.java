@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
-import ua.com.owu.service.userService.UserService;
+import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
@@ -31,11 +31,13 @@ public class UserController {
     @Autowired
     private Environment environment;
 
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private MailService mailService;
+
+
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/login")
     public String login() {
@@ -74,7 +76,7 @@ public class UserController {
             e.printStackTrace();
         }
         userEditor.setValue(user);
-        userService.save(user);
+        accountService.save(user);
 
 
         return "redirect:/login";

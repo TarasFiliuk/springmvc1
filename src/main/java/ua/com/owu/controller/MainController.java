@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
-import ua.com.owu.service.userService.UserService;
 
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
@@ -30,8 +29,6 @@ public class MainController {
     @Autowired
     private MailService mailService;
 
-    @Autowired
-    private UserService userService;
 
 
     @GetMapping("/")

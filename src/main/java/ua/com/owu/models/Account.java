@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="accountType",
-        discriminatorType = DiscriminatorType.INTEGER)
+        discriminatorType = DiscriminatorType.STRING)
 public abstract class Account implements UserDetails {
 
     @Id
