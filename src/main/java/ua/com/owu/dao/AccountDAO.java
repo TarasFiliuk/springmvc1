@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface AccountDAO extends JpaRepository<Account,Integer> {
     Account findByUsername(String username);
-     List<Account>findByRole (Role role);
+     List<Account>findByAccountType(String accountType);
 
 }

@@ -3,6 +3,7 @@ package ua.com.owu.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.AccountDAO;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Component("accoutServiceImpl")
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountDAO accountDAO;
@@ -27,8 +29,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findByRole(Role role) {
-        return accountDAO.findByRole(role);
+    public List<Account> findByAccountType(String accountType) {
+        return accountDAO.findByAccountType(accountType);
     }
 
 

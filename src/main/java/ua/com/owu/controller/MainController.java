@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.models.Account;
+import ua.com.owu.models.Role;
 import ua.com.owu.models.User;
+import ua.com.owu.service.AccountService.AccountServiceImpl;
 import ua.com.owu.service.MailService;
 
 import ua.com.owu.utils.UserEditor;
@@ -19,6 +22,7 @@ import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -96,6 +100,7 @@ public class MainController {
 
         return "redirect:/";
     }
+
 
 
 }

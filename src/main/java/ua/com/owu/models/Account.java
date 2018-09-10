@@ -15,6 +15,17 @@ import java.util.Set;
 @DiscriminatorColumn(name="accountType",
         discriminatorType = DiscriminatorType.STRING)
 public abstract class Account implements UserDetails {
+    @Column(name = "accountType",updatable = false,insertable = false)
+     private String accountType;
+
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +37,7 @@ public abstract class Account implements UserDetails {
         this.id = id;
     }
 
-
+    @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_USER;
     public Role getRole() {
         return role;

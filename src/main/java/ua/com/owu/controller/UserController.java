@@ -83,7 +83,7 @@ public class UserController {
     }
     @GetMapping("/userList")
     public String userList(Model model){
-        List<Account> all = accountService.findByRole(Role.ROLE_USER);
+        List<Account> all = accountService.findByAccountType("user");
         model.addAttribute("users", all);
         return "userList";
     }

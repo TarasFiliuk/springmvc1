@@ -22,8 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Qualifier("accoutServiceImpl")
     @Autowired
-    @Qualifier("accountServiceImpl")
     UserDetailsService userDetailsService;
 
 
