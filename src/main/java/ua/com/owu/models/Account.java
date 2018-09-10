@@ -38,7 +38,7 @@ public abstract class Account implements UserDetails {
     }
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.ROLE_USER;
+    private Role role = Role.ROLE_MANAGER;
     public Role getRole() {
         return role;
     }
