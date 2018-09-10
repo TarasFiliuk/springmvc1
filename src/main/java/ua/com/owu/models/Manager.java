@@ -14,18 +14,6 @@ import java.util.Set;
 @DiscriminatorValue("2")
 public class Manager  extends Account{
 
-
-
-    @Column(unique = true)
-    private String token;
-    public String getToken() {
-        return token;
-    }
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     Place place;
     public Place getPlace() {
@@ -46,33 +34,12 @@ public class Manager  extends Account{
     }
 
 
-    private String firstName;
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-
-
-    private String lastName;
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
 
     @Override
     public String toString() {
         return "Manager{" +
-                "token='" + token + '\'' +
-                ", place=" + place +
+                 ", place=" + place +
                 ", userOrders=" + userOrders +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

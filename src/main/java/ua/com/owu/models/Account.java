@@ -15,7 +15,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="accountType",
         discriminatorType = DiscriminatorType.INTEGER)
-public class Account implements UserDetails {
+public abstract class Account implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,7 +73,24 @@ public class Account implements UserDetails {
         this.email = email;
     }
 
+    private String firstName;
+    private String lastName;
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     private boolean isAccountNonExpired= true;
     @Override

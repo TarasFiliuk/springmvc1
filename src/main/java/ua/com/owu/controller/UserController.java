@@ -52,18 +52,6 @@ public class UserController {
                        Model model
     ) throws IOException {
         String username = user.getUsername();
-        String path = System.getProperty("user.dir")
-                + File.separator
-                + "src"
-                + File.separator
-                + "main"
-                + File.separator
-                + "resources"
-                + File.separator
-                + "static"
-                + File.separator;
-
-
         userValidator.validate(user,bindingResult);
 
         if (bindingResult.hasErrors()) {
