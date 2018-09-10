@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("2")
+@DiscriminatorValue("manager")
 public class Manager  extends Account{
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -35,12 +35,5 @@ public class Manager  extends Account{
 
 
 
-    @Override
-    public String toString() {
-        return "Manager{" +
-                 ", place=" + place +
-                ", userOrders=" + userOrders +
-                '}';
-    }
 }
 

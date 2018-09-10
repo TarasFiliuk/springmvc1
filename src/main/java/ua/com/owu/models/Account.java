@@ -11,7 +11,6 @@ import java.util.Set;
 
 
 @Entity
-//@MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="accountType",
         discriminatorType = DiscriminatorType.INTEGER)
@@ -134,4 +133,20 @@ public abstract class Account implements UserDetails {
     }
 
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isAccountNonExpired=" + isAccountNonExpired +
+                ", isAccountNonLocked=" + isAccountNonLocked +
+                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
+                ", isEnabled=" + isEnabled +
+                '}';
+    }
 }

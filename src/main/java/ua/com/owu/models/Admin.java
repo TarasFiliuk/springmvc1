@@ -10,12 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("1")
+@DiscriminatorValue("admin")
 public class Admin extends Account{
-
-
-
-
 
 
 }
