@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@DiscriminatorValue("2")
 public class Manager  extends Account{
 
 

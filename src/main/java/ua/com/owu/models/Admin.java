@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@DiscriminatorValue("1")
 public class Admin extends Account{
 
     @Column(unique = true)

@@ -12,9 +12,15 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
+@DiscriminatorValue("3")
 public class User extends Account{
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     private String firstName;
     public String getFirstName() {

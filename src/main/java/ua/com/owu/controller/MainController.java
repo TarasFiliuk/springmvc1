@@ -30,11 +30,13 @@ public class MainController {
     @Autowired
     private MailService mailService;
 
-
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/")
     public String index() {
+
         return "index";
     }
 

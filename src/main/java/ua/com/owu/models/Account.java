@@ -10,9 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-//@Entity
-@MappedSuperclass
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
+//@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="accountType",
+        discriminatorType = DiscriminatorType.INTEGER)
 public class Account implements UserDetails {
 
     @Id
