@@ -1,17 +1,15 @@
 package ua.com.owu.service.userService;
 
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import ua.com.owu.models.User;
+import ua.com.owu.service.AccountService.AccounBaseRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 
-public interface UserService extends UserDetailsService {
+public interface UserService extends AccounBaseRepository<User>{
 
-    List<User> findAll();
-    Optional<User> findById(int id);
-    void save(User user);
+    Iterable<User> findAll();
+    User save(User user);
 
 }

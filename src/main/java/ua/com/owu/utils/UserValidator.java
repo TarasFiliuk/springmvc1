@@ -16,7 +16,7 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
-        if (user.getUsername().length() < 3) {
+        if (user.getUserName().length() < 3) {
             errors.rejectValue("username","message.length.error");
         }
     }

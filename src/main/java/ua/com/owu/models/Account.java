@@ -4,29 +4,86 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
-public class Account implements UserDetails {
-
-
-
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "account",discriminatorType = DiscriminatorType.STRING)
+public abstract class  Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(unique = true)
+    private String userName;
+
+    protected Account() {
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
+
+    private String descr;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Place place;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accounts")
+    List<UserOrder> userOrders;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
+   private  List<UserOrder> orders;
+
+
+    public Account(String descr, Place place, List<UserOrder> userOrders, List<UserOrder> orders, Role role, String password, String username, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+        this.descr = descr;
+        this.place = place;
+        this.userOrders = userOrders;
+        this.orders = orders;
+        this.role = role;
+        this.password = password;
+        this.username = username;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
+    }
+
+
+
+
+
+
+
+    public String getDescr() {
+        return descr;
+    }
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
+
+
+
+
+
 
 
     private Role role = Role.ROLE_USER;
@@ -107,6 +164,7 @@ public class Account implements UserDetails {
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
+
 
 
 }

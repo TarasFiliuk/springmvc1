@@ -21,10 +21,10 @@ public class UserOrder {
     private DateTime end;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private User user;
+    private Account account;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Manager>managers;
+    private List<Account> accounts;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private UserTable userTable;

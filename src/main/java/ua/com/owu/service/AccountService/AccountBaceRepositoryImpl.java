@@ -1,33 +1,26 @@
-package ua.com.owu.service.managerService;
+package ua.com.owu.service.AccountService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.owu.dao.AccountDAO;
 import ua.com.owu.dao.ManagerDAO;
-import ua.com.owu.models.Manager;
-import ua.com.owu.service.managerService.ManagerService;
-
+import ua.com.owu.dao.UserDAO;
+import ua.com.owu.models.Account;
 @Service
 @Transactional
-public class ManagerServiceImp implements ManagerService {
+public class AccountBaceRepositoryImpl implements AccounBaseRepository<Account> {
     @Autowired
-    ManagerDAO managerDAO;
-
+    AccountDAO accountDAO;
     @Override
-    public Manager findById(int id) {
-        return managerDAO.findById(id);
-    }
-
-    @Override
-    public Manager findByFirstName(String firstname) {
-        return managerDAO.findByFirstName(firstname);
+    public Account findById(int id) {
+        return accountDAO.findById(id);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return managerDAO.findByUsername(username);
+        return accountDAO.findByUsername(username);
     }
-
 }

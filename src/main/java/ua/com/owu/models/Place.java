@@ -13,7 +13,7 @@ public class Place {
     private String city;
     private String specification;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "place")
-    List<Manager> managers;
+    List<Account> accounts;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "place")
     List<UserTable> userTables;
@@ -63,12 +63,12 @@ public class Place {
         this.specification = specification;
     }
 
-    public List<Manager> getManagers() {
-        return managers;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setManagers(List<Manager> managers) {
-        this.managers = managers;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
     public List<UserTable> getUserTables() {

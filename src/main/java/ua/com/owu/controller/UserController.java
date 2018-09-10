@@ -17,7 +17,6 @@ import ua.com.owu.utils.UserValidator;
 import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -81,7 +80,7 @@ public class UserController {
 
 
         try {
-            mailService.sendConfirmMessage(user.getEmail(), user);
+            mailService.sendConfirmMessage(user.getUserName(), user);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

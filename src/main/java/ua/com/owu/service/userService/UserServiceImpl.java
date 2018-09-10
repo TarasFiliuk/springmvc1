@@ -20,17 +20,13 @@ public class UserServiceImpl implements UserService {
     UserDAO userDAO;
 
     public List<User> findAll() {
-        return userDAO.findAll();
+        return (List<User>) userDAO.findAll();
     }
 
-    @Override
-    public Optional<User> findById(int id) {
-        return Optional.ofNullable(userDAO.findOne(id));
-    }
 
-    public void save(User user) {
+    public User save(User user) {
         userDAO.save(user);
-
+        return user;
     }
 
     @Override
@@ -38,5 +34,13 @@ public class UserServiceImpl implements UserService {
         User byUsername = userDAO.findByUsername(s);
         return byUsername;
     }
+
+
+    @Override
+    public User findById(int id) {
+        return userDAO.findById(id);
+    }
+
+
 
 }
