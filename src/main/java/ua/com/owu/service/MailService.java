@@ -9,6 +9,5 @@ import javax.mail.MessagingException;
 public interface MailService {
     void sendSimpleMessage(String email, String subject, String text) throws MessagingException;
     void sendConfirmMessage(String email, User user) throws MessagingException;
-    void sendConfirmMessage(String email, Manager manager) throws MessagingException;
     void sendMessageWithAttachment(String email, String subject, String text, MultipartFile file) throws MessagingException;
 }
