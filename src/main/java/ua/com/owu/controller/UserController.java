@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
 import ua.com.owu.service.userService.UserService;
@@ -40,6 +42,29 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+
+    @RequestMapping("/user/confirm/2255542{id}")
+    public String confirming(
+            @PathVariable int id
+    ) {
+        if (userService.findById(id).isPresent()) {
+            User user = userService.findById(id).get();
+            user.setEnabled(true);
+            userService.save(user);
+            System.out.println(user);
+        }
+        System.out.println("LALALALALLALLALA");
+        return "redirect:/userList";
+    }
+
+
+    @GetMapping("/userList")
+    public String userList(Model model){
+        List<User> all = userService.findAll();
+        model.addAttribute("users", all);
+        return "userList";
     }
 
 
@@ -80,13 +105,15 @@ public class UserController {
         }
 
 
+
+        userEditor.setValue(user);
+        userService.save(user);
+        System.out.println("SAVE" + user);
         try {
             mailService.sendConfirmMessage(user.getEmail(), user);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        userEditor.setValue(user);
-        userService.save(user);
 
 
         return "redirect:/login";

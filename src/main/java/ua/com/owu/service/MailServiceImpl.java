@@ -30,21 +30,13 @@ public class MailServiceImpl implements MailService {
     public void sendConfirmMessage(String email, User user) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://project.com/"+user.getToken()+"\">Please confirm your email!</a>");
+        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/user/confirm/2255542"+user.getId()+"\">Please confirm your email!</a>", true);
         messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
         mailSender.send(message);
     }
 
-    @Override
-    public void sendConfirmMessage(String email, Manager manager) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText("<h2>Nice to meet you "+ manager.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://project.com/"+manager.getToken()+"\">Please confirm your email!</a>");
-        messageHelper.setSubject("Confirm your email!");
-        messageHelper.setTo(email);
-        mailSender.send(message);
-    }
+
 
     @Override
     public void sendMessageWithAttachment(String email, String subject, String text, MultipartFile file) throws MessagingException {

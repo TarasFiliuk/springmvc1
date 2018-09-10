@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import ua.com.owu.models.User;
 
 import java.beans.PropertyEditorSupport;
+import java.util.Date;
 
 @Component
 public class UserEditor extends PropertyEditorSupport {
@@ -17,9 +18,10 @@ public class UserEditor extends PropertyEditorSupport {
     @Override
     public void setValue(Object value) {
         User user = (User) value;
+//        user.setToken(user.getId()+ "" + new Date().getTime());
+//        System.out.println(user.getToken());
         String password = user.getPassword();
         String encode = passwordEncoder.encode(password);
         user.setPassword(encode);
-
     }
 }

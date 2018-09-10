@@ -13,5 +13,6 @@ public interface UserService extends UserDetailsService {
     List<User> findAll();
     Optional<User> findById(int id);
     void save(User user);
+    User findByToken(String token);
 
 }
