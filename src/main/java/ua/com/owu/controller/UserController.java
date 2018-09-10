@@ -8,16 +8,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import ua.com.owu.models.Account;
+import ua.com.owu.models.Role;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
-import ua.com.owu.service.accountService.AccountService;
+import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -80,6 +80,12 @@ public class UserController {
 
 
         return "redirect:/login";
+    }
+    @GetMapping("/userList")
+    public String userList(Model model){
+        List<Account> all = accountService.findByRole(Role.ROLE_USER);
+        model.addAttribute("users", all);
+        return "userList";
     }
 
 }
