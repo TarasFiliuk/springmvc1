@@ -133,7 +133,19 @@ public abstract class Account implements UserDetails {
     }
 
 
+//for account activation
+    private String token = null;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    //UNCOMMET when token activation is used
+//    private boolean isEnabled = false;
+    //UNCOMMET when token activation is NOT used
     private boolean isEnabled = true;
     @Override
     public boolean isEnabled() {

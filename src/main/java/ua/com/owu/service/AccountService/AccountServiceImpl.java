@@ -54,10 +54,9 @@ public class AccountServiceImpl implements AccountService {
             return accountDAO.findByUsername(param);
     }
 
-//        if (accountDAO.findByEmail(param).getEmail().equals(param)){
-//            return accountDAO.findByEmail(param);
-//        }else
-//            return accountDAO.findByUsername(param);
-//
-//    }
+    @Override
+    public Account findByToken(String token) {
+        return accountDAO.findByToken(token);
+
+    }
 }

@@ -11,4 +11,6 @@ public interface AccountService  extends UserDetailsService{
     List<Account>findByAccountType(String accountType);
     List<Account> findAll();
     Account findByEmail(String email);
+    Account findByToken (String token);
+
 }
