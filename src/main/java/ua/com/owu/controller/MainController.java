@@ -62,7 +62,7 @@ public class MainController {
 
     @GetMapping("/times")
     public String times() {
-        return "times";
+        return "index";
     }
 
     @PostMapping("/times")
