@@ -10,4 +10,5 @@ public interface AccountService  extends UserDetailsService{
     Account findbyId(int id);
     List<Account>findByAccountType(String accountType);
     List<Account> findAll();
+    Account findByEmail(String email);
 }

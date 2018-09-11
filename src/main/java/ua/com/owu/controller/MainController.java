@@ -34,8 +34,6 @@ public class MainController {
     @Autowired
     private MailService mailService;
 
-
-
     @GetMapping("/")
     public String index() {
 
@@ -45,19 +43,17 @@ public class MainController {
     @PostMapping("/ok")
     public String ok(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
+        String name = auth.getName(); //get logged in username{
+            model.addAttribute("username", name);
+            System.out.println(name);
 
-        model.addAttribute("username", name);
-        System.out.println(name);
         return "ok";
     }
 
     @GetMapping("/books/input")
-        public String bookInput(){
-            return "" ;
-        }
-
-
+    public String bookInput() {
+        return "";
+    }
 
 
     @GetMapping("/times")
@@ -92,7 +88,7 @@ public class MainController {
             @RequestParam String subject,
             @RequestParam String message
 
-    ){
+    ) {
         try {
             mailService.sendSimpleMessage(email, subject, message);
         } catch (MessagingException e) {
@@ -101,7 +97,6 @@ public class MainController {
 
         return "redirect:/";
     }
-
 
 
 }

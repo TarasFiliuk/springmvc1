@@ -18,9 +18,10 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountDAO accountDAO;
+
     @Override
     public void save(Account account) {
-    accountDAO.save(account);
+        accountDAO.save(account);
     }
 
     @Override
@@ -40,7 +41,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return accountDAO.findByUsername(username);
+    public Account findByEmail(String email) {
+        return accountDAO.findByEmail(email);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String param) throws UsernameNotFoundException {
+
+        if (param.contains("@")) {
+            return accountDAO.findByEmail(param);
+        } else
+            return accountDAO.findByUsername(param);
+    }
+
+//        if (accountDAO.findByEmail(param).getEmail().equals(param)){
+//            return accountDAO.findByEmail(param);
+//        }else
+//            return accountDAO.findByUsername(param);
+//
+//    }
 }
