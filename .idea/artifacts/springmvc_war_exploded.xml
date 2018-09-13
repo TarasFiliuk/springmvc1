@@ -7,6 +7,9 @@
           <element id="module-output" name="springmvc" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.webjars:bootstrap:4.0.0" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:3.0.0" />
+          <element id="library" level="project" name="Maven: org.webjars.npm:popper.js:1.11.1" />
           <element id="library" level="project" name="Maven: org.springframework.integration:spring-integration-mail:4.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.integration:spring-integration-core:4.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.retry:spring-retry:1.1.1.RELEASE" />

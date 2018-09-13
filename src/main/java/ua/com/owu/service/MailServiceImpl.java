@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import ua.com.owu.models.Manager;
 import ua.com.owu.models.User;
+import ua.com.owu.utils.TokenUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -15,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 public class MailServiceImpl implements MailService {
     @Autowired
     JavaMailSender mailSender;
+
 
     @Override
     public void sendSimpleMessage(String email, String subject, String text) throws MessagingException {
@@ -30,7 +32,9 @@ public class MailServiceImpl implements MailService {
     public void sendConfirmMessage(String email, User user) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr><a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/user/confirm/2255542"+user.getId()+"\">Please confirm your email!</a>", true);
+        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr>" +
+                "<a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/confirm/"+user.getToken() +"\">"+
+                "Please confirm your email!</a>", true);
         messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
         mailSender.send(message);

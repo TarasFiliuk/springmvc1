@@ -7,7 +7,9 @@
 <body>
 
 <form th:action="@{/save}" method="post">
-    <input type="username" name="username" placeholder="name">
+    <input type="text" name="username" placeholder="name">
+    <input type="text" name="firstName" placeholder="firstname">
+    <input type="text" name="lastName" placeholder="lastname">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="pass">
     <input type="submit" name="" placeholder="">
@@ -28,7 +30,30 @@
     <input type="submit" name="" placeholder="">
 </form>
 
-<a th:href="@{/times}">TIMES</a>
+<!--<a th:href="@{/times}">TIMES</a>-->
+<h1>TIME</h1>
+<form th:action="@{/times}" method="post">
+    <input type="date" name="date" placeholder="time">
+    <select name="start" id="start">
+        <option value="9">9:00</option>
+        <option value="12">12:00</option>
+        <option value="15">15:00</option>
+        <option value="18">18:00</option>
+        <option value="21">21:00</option>
+    </select>
+    <select name="end" id="end">
+        <option value="9">9:00</option>
+        <option value="12">12:00</option>
+        <option value="15">15:00</option>
+        <option value="18">18:00</option>
+        <option value="21">21:00</option>
+    </select>
+    <input type="submit" name="" placeholder="">
+
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+</form>
 
 
 </body>

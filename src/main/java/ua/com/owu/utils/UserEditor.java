@@ -20,6 +20,5 @@ public class UserEditor extends PropertyEditorSupport {
         String password = user.getPassword();
         String encode = passwordEncoder.encode(password);
         user.setPassword(encode);
-
     }
 }

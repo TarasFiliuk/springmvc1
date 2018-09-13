@@ -11,11 +11,21 @@ import java.util.Set;
 
 
 @Entity
-//@MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="accountType",
-        discriminatorType = DiscriminatorType.INTEGER)
-public class Account implements UserDetails {
+        discriminatorType = DiscriminatorType.STRING)
+public abstract class Account implements UserDetails {
+    @Column(name = "accountType",updatable = false,insertable = false)
+     private String accountType;
+
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +37,7 @@ public class Account implements UserDetails {
         this.id = id;
     }
 
-
+    @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_USER;
     public Role getRole() {
         return role;
@@ -73,7 +83,24 @@ public class Account implements UserDetails {
         this.email = email;
     }
 
+    private String firstName;
+    private String lastName;
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     private boolean isAccountNonExpired= true;
     @Override
@@ -106,7 +133,19 @@ public class Account implements UserDetails {
     }
 
 
+//for account activation
+    private String token = null;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    //UNCOMMET when token activation is used
+//    private boolean isEnabled = false;
+    //UNCOMMET when token activation is NOT used
     private boolean isEnabled = true;
     @Override
     public boolean isEnabled() {
@@ -117,4 +156,20 @@ public class Account implements UserDetails {
     }
 
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isAccountNonExpired=" + isAccountNonExpired +
+                ", isAccountNonLocked=" + isAccountNonLocked +
+                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
+                ", isEnabled=" + isEnabled +
+                '}';
+    }
 }

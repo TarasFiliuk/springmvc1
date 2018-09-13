@@ -11,28 +11,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.models.Account;
+import ua.com.owu.models.Role;
 import ua.com.owu.models.User;
+import ua.com.owu.service.AccountService.AccountServiceImpl;
 import ua.com.owu.service.MailService;
-import ua.com.owu.service.userService.UserService;
 
 import ua.com.owu.utils.UserEditor;
 import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class MainController {
+
 
     @Autowired
     private Environment environment;
 
     @Autowired
     private MailService mailService;
-
-    @Autowired
-    private UserService userService;
-
 
     @GetMapping("/")
     public String index() {
@@ -43,24 +43,22 @@ public class MainController {
     @PostMapping("/ok")
     public String ok(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
+        String name = auth.getName(); //get logged in username{
+            model.addAttribute("username", name);
+            System.out.println(name);
 
-        model.addAttribute("username", name);
-        System.out.println(name);
         return "ok";
     }
 
     @GetMapping("/books/input")
-        public String bookInput(){
-            return "" ;
-        }
-
-
+    public String bookInput() {
+        return "";
+    }
 
 
     @GetMapping("/times")
     public String times() {
-        return "times";
+        return "index";
     }
 
     @PostMapping("/times")
@@ -90,7 +88,7 @@ public class MainController {
             @RequestParam String subject,
             @RequestParam String message
 
-    ){
+    ) {
         try {
             mailService.sendSimpleMessage(email, subject, message);
         } catch (MessagingException e) {
