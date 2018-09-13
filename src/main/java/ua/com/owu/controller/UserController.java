@@ -2,6 +2,7 @@ package ua.com.owu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,8 +45,10 @@ public class UserController {
         return "login";
     }
 
-
-
+    @PostMapping("/logout")
+    public String logout() {
+        return "index";
+    }
 
 
     @PostMapping("/save")
@@ -54,7 +57,7 @@ public class UserController {
                        Model model
     ) throws IOException {
         String username = user.getUsername();
-        userValidator.validate(user,bindingResult);
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
 
@@ -65,7 +68,7 @@ public class UserController {
                 errorMessage += " " + environment.getProperty(code);
             }
 
-            model.addAttribute("error" , errorMessage);
+            model.addAttribute("error", errorMessage);
             return "index";
         }
 
@@ -81,8 +84,9 @@ public class UserController {
 
         return "redirect:/login";
     }
+
     @GetMapping("/userList")
-    public String userList(Model model){
+    public String userList(Model model) {
         List<Account> all = accountService.findByAccountType("user");
         model.addAttribute("users", all);
         return "userList";

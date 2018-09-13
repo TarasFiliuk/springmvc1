@@ -78,14 +78,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/error")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .deleteCookies("remove")
-                .invalidateHttpSession(true)
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
-                .permitAll();
+                .logoutSuccessUrl("/")
+                .and();
+
 
 
     }
-
 }

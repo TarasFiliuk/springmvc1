@@ -1,9 +1,18 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Title</title>
+    <link rel="jsp" href="/jsp/logout.jsp">
 </head>
 <body>
 OK
 <h3> Person name - <em th:text=" ${username}"></em></h3>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+
+</form>
 </body>
 </html>
