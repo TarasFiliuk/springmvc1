@@ -1,5 +1,6 @@
 package ua.com.owu.models;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,10 @@ public abstract class Account implements UserDetails {
 //    private boolean isCredentialsNonExpired =true G S
 //    private String token = null G S
 //    private boolean isEnabled = true G S
+
+
+    public Account() {
+    }
 
     @Column(name = "accountType",updatable = false,insertable = false)
     private String accountType;
@@ -151,6 +156,13 @@ public abstract class Account implements UserDetails {
         this.token = token;
     }
     //UNCOMMET when token activation is used
+
+    public Account(Role role, String password, String username, String email) {
+        this.role = role;
+        this.password = password;
+        this.username = username;
+        this.email = email;
+    }
 //    private boolean isEnabled = false;
     //UNCOMMET when token activation is NOT used
 

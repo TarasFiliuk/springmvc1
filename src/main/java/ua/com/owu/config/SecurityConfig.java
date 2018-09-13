@@ -47,19 +47,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth,
-                                AuthenticationProvider provider) throws Exception {
-
-        inMemoryConfigurer()
-                .withUser("admin")
-                .password("{noop}admin")
-                .authorities("ROLE_ADMIN")
-                .and()
-                .configure(auth);
-        auth.authenticationProvider(provider);
-
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth,
+//                                AuthenticationProvider provider) throws Exception {
+//
+//        inMemoryConfigurer()
+//                .withUser("admin")
+//                .password("{noop}admin")
+//                .authorities("ROLE_ADMIN")
+//                .and()
+//                .configure(auth);
+//        auth.authenticationProvider(provider);
+//
+//    }
 
 
     @Override
@@ -72,9 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/manager/**").hasRole("MANAGER")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+//                .loginPage("/login")
                 .successForwardUrl("/ok")
-                .failureUrl("/error")
+//                .failureUrl("/error")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -7,14 +7,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.owu.models.Manager;
 import ua.com.owu.models.User;
 import ua.com.owu.service.AccountService.AccountService;
+import ua.com.owu.utils.AccountEditor;
 
 @Controller
 public class ManagerController {
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    AccountEditor accountEditor;
+
+
  @PostMapping("/save/manager")
  public String manager(Manager manager){
+     accountEditor.setValue(manager);
      accountService.save(manager);
+
  return "redirect:/";
  }
 

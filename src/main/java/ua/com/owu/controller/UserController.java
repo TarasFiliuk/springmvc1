@@ -9,14 +9,12 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.owu.models.Account;
-import ua.com.owu.models.Role;
 import ua.com.owu.models.User;
 import ua.com.owu.service.MailService;
 import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.utils.TokenUtils;
-import ua.com.owu.utils.UserEditor;
+import ua.com.owu.utils.AccountEditor;
 import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
@@ -27,7 +25,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserEditor userEditor;
+    private AccountEditor accountEditor;
 
     @Autowired
     UserValidator userValidator;
@@ -83,7 +81,7 @@ public class UserController {
             e.printStackTrace();
         }
 
-        userEditor.setValue(user);
+        accountEditor.setValue(user);
         accountService.save(user);
 
 

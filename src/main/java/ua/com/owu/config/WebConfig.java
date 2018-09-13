@@ -18,13 +18,6 @@ import java.util.Properties;
 @ComponentScan("ua.com.owu.*")
 public class WebConfig extends WebMvcConfigurerAdapter  {
 
-//    @Bean
-//    InternalResourceViewResolver viewResolver(){
-//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/pages/");
-//        viewResolver.setSuffix(".jsp");
-//        return viewResolver;
-//    }
 
     @Bean
     public SpringTemplateEngine templateEngine() {

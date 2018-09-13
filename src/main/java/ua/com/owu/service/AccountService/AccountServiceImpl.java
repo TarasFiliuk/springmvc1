@@ -59,4 +59,9 @@ public class AccountServiceImpl implements AccountService {
         return accountDAO.findByToken(token);
 
     }
+
+    @Override
+    public Account findByUsername(String username) {
+        return accountDAO.findByUsername(username);
+    }
 }

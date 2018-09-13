@@ -22,6 +22,9 @@
 
 <p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>
 
+<p><a th:href="'/admin/page'" th:text="'Admin page'"></a></p>
+<p><a th:href="'/createAdmin'" th:text="'Create Admin'"></a></p>
+
 <form th:action="@{/sentMail}" method="post">
     <input type="email" name="email" placeholder="mail">
     <input type="text" name="subject" placeholder="subject">

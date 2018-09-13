@@ -9,10 +9,14 @@ import ua.com.owu.models.Role;
 import java.util.List;
 
 @Repository
-public interface AccountDAO extends JpaRepository<Account,Integer> {
+public interface AccountDAO extends JpaRepository<Account, Integer> {
     Account findByUsername(String username);
-     List<Account>findByAccountType(String accountType);
-     Account findByEmail(String email);
-     Account findByToken (String token);
+
+    List<Account> findByAccountType(String accountType);
+
+    Account findByEmail(String email);
+
+    Account findByToken(String token);
+
 
 }

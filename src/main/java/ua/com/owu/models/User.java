@@ -15,8 +15,16 @@ import java.util.Set;
 @DiscriminatorValue("user")
 public class User extends Account{
 
+    public User() {
+    }
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserOrder> userOrders;
+
+    public User(Role role, String password, String username, String email) {
+        super(role, password, username, email);
+    }
+
     public List<UserOrder> getUserOrders() {
         return userOrders;
     }

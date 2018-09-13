@@ -16,6 +16,14 @@ public class Manager  extends Account{
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     Place place;
+
+    public Manager() {
+    }
+
+    public Manager(Role role, String password, String username, String email) {
+        super(role, password, username, email);
+    }
+
     public Place getPlace() {
         return place;
     }

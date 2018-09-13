@@ -9,20 +9,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.Account;
+import ua.com.owu.models.Admin;
 import ua.com.owu.models.Role;
-import ua.com.owu.models.User;
-import ua.com.owu.service.AccountService.AccountServiceImpl;
+import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.service.MailService;
 
-import ua.com.owu.utils.UserEditor;
-import ua.com.owu.utils.UserValidator;
+import ua.com.owu.utils.AccountEditor;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -34,9 +30,25 @@ public class MainController {
     @Autowired
     private MailService mailService;
 
+
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    AccountEditor accountEditor;
+
     @GetMapping("/")
     public String index() {
 
+
+        return "index";
+    }
+
+    @GetMapping("/createAdmin")
+    public String createAdmin() {
+        Admin admin = new Admin(Role.ROLE_ADMIN, "admin", "admin", "as@as");
+        accountEditor.setValue(admin);
+        accountService.save(admin);
         return "index";
     }
 
@@ -44,7 +56,12 @@ public class MainController {
     public String ok(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username{
-            model.addAttribute("username", name);
+        Account byUsername = accountService.findByUsername(auth.getName());
+        Role role = byUsername.getRole();
+        String accountType = byUsername.getAccountType();
+        model.addAttribute("username", name);
+        model.addAttribute("role",role);
+        model.addAttribute("accType",accountType);
             System.out.println(name);
 
         return "ok";
@@ -97,6 +114,8 @@ public class MainController {
 
         return "redirect:/";
     }
+
+
 
 
 }
