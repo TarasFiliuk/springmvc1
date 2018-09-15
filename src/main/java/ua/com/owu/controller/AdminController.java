@@ -26,8 +26,8 @@ public class AdminController {
 
         List<Account> manager = accountService.findByAccountType("manager");
         Stream<Account> stream = manager.stream();
-        List<Account> isLocked = stream.filter(account -> !account.isAccountNonLocked()).collect(Collectors.toList());
-        model.addAttribute("manager",isLocked);
+        List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
+        model.addAttribute("manager",collect);
 
         return "adminT";
     }
@@ -38,6 +38,7 @@ public class AdminController {
     ){
         Account managerAccount = accountService.findbyId(id);
         managerAccount.setAccountNonLocked(true);
+        accountService.save(managerAccount);
         return "redirect:/admin/page";
     }
 

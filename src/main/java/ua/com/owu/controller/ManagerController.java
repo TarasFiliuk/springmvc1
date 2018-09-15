@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.owu.models.Manager;
+import ua.com.owu.models.Role;
 import ua.com.owu.models.User;
 import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.utils.AccountEditor;
@@ -21,6 +22,8 @@ public class ManagerController {
  @PostMapping("/save/manager")
  public String manager(Manager manager){
      accountEditor.setValue(manager);
+     manager.setRole(Role.ROLE_MANAGER);
+     manager.setAccountNonLocked(false);
      accountService.save(manager);
 
  return "redirect:/";
