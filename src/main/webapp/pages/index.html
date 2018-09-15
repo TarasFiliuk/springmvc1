@@ -6,20 +6,23 @@
 </head>
 <body>
 
+<div>
 <form th:action="@{/save}" method="post">
-    <input type="text" name="username" placeholder="name">
-    <input type="text" name="firstName" placeholder="firstname">
-    <input type="text" name="lastName" placeholder="lastname">
-    <input type="email" name="email" placeholder="email">
-    <input type="password" name="password" placeholder="pass">
-    <input type="submit" name="" placeholder="">
+    <input type="text" name="username" placeholder="name" style="margin-top: 5px"><br>
+    <!--<input type="text" name="firstName" placeholder="firstname" style="margin-top: 5px">-->
+    <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
+    <input type="email" name="email" placeholder="email" style="margin-top: 5px"><br>
+    <input type="password" name="password" placeholder="pass" style="margin-top: 5px"><br>
+    <input type="submit" name="" placeholder="" style="margin-top: 5px">
 
     <input type="hidden"
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
 </form>
-<h1>cvszvdfvdf</h1>
+</div>
 
+
+<!--jkkjj-->
 <p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>
 
 <p><a th:href="'/admin/page'" th:text="'Admin page'"></a></p>
@@ -57,6 +60,13 @@
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
 </form>
+
+<ul  th:each="a:${account}">
+    <li>
+        <a th:href="'/sxxa/'+${a.id}"
+           th:text=" ${a.username} + ':' + ${a.email}"></a>
+    </li>
+</ul>
 
 
 </body>

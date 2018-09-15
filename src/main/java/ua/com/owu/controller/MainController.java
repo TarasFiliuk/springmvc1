@@ -19,6 +19,7 @@ import ua.com.owu.service.MailService;
 import ua.com.owu.utils.AccountEditor;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -38,8 +39,10 @@ public class MainController {
     AccountEditor accountEditor;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
 
+        List<Account> all = accountService.findAll();
+        model.addAttribute("account",all);
 
         return "index";
     }
