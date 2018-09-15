@@ -41,11 +41,10 @@ public class MainController {
     @GetMapping("/")
     public String index(Model model) {
 
-        List<Account> all = accountService.findAll();
-        model.addAttribute("account",all);
-
         return "index";
     }
+
+
 
     @GetMapping("/createAdmin")
     public String createAdmin() {

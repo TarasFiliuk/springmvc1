@@ -61,12 +61,6 @@
            value="${_csrf.token}"/>
 </form>
 
-<ul  th:each="a:${account}">
-    <li>
-        <a th:href="'/sxxa/'+${a.id}"
-           th:text=" ${a.username} + ':' + ${a.email}"></a>
-    </li>
-</ul>
 
 
 </body>
