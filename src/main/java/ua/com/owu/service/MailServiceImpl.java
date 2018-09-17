@@ -37,7 +37,8 @@ public class MailServiceImpl implements MailService {
                 "Please confirm your email!</a>", true);
         messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
-        mailSender.send(message);
+//        mailSender.send(message);
+        System.out.println("MAIL SENDED!!!");
     }
 
 
