@@ -161,6 +161,11 @@ public class MainController {
         accountService.save(manager);
         return "redirect:/";
     }
+    @GetMapping("/create/manager_page")
+    public String managerRegistration() {
 
+
+        return "managerRegistration";
+    }
 
 }
