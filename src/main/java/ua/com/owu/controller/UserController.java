@@ -43,10 +43,10 @@ public class UserController {
     TokenUtils tokenUtils = new TokenUtils();
 
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
 
 
     @PostMapping("/save")
