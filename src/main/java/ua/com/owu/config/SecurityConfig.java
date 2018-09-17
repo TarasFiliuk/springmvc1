@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/ok")
+                .successForwardUrl("/")
                 .failureUrl("/error")
                 .and()
                 .logout()
@@ -81,8 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("remove")
                 .invalidateHttpSession(true)
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
-                .permitAll();
+                .logoutSuccessUrl("/")
+                .and();
 
 
     }

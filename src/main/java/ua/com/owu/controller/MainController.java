@@ -39,11 +39,23 @@ public class MainController {
     AccountEditor accountEditor;
 
     @GetMapping("/")
-    public String index(Model model) {
-
+    public String index() {
         return "index";
     }
 
+    @PostMapping("/")
+    public String index(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        Account byUsername = accountService.findByUsername(auth.getName());
+        Role role = byUsername.getRole();
+        String accountType = byUsername.getAccountType();
+        model.addAttribute("username", name);
+        model.addAttribute("role", role);
+        model.addAttribute("accType", accountType);
+        System.out.println(name);
+        return "index";
+    }
 
 
     @GetMapping("/createAdmin")
@@ -56,15 +68,7 @@ public class MainController {
 
     @PostMapping("/ok")
     public String ok(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username{
-        Account byUsername = accountService.findByUsername(auth.getName());
-        Role role = byUsername.getRole();
-        String accountType = byUsername.getAccountType();
-        model.addAttribute("username", name);
-        model.addAttribute("role",role);
-        model.addAttribute("accType",accountType);
-            System.out.println(name);
+
 
         return "ok";
     }
@@ -116,8 +120,6 @@ public class MainController {
 
         return "redirect:/";
     }
-
-
 
 
 }
