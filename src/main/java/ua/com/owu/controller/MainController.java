@@ -82,14 +82,15 @@ public class MainController {
         return "ok";
     }
 
-    //AdminController
+
     @GetMapping("/admin/page")
     String adminPage(Model model) {
-
+//
         List<Account> manager = accountService.findByAccountType("manager");
         Stream<Account> stream = manager.stream();
         List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
         model.addAttribute("manager", collect);
+        System.out.println("admina");
         return "adminT";
     }
 
@@ -157,13 +158,12 @@ public class MainController {
     public String manager(Manager manager) {
         accountEditor.setValue(manager);
         manager.setRole(Role.ROLE_MANAGER);
-        manager.setAccountNonLocked(false);
+        manager.setAccountNonLocked(true);
         accountService.save(manager);
         return "redirect:/";
     }
     @GetMapping("/create/manager_page")
     public String managerRegistration() {
-
 
         return "managerRegistration";
     }
