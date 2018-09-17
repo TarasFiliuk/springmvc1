@@ -45,10 +45,10 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/logout")
-    public String logout() {
-        return "index";
-    }
+//    @PostMapping("/logout")
+//    public String logout() {
+//        return "index";
+//    }
 
 
     @PostMapping("/save")
