@@ -85,7 +85,7 @@ public class UserController {
         accountService.save(user);
 
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/userList")
