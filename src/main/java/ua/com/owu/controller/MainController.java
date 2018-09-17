@@ -66,12 +66,7 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/ok")
-    public String ok(Model model) {
 
-
-        return "ok";
-    }
 
     @GetMapping("/books/input")
     public String bookInput() {
