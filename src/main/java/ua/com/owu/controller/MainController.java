@@ -91,7 +91,7 @@ public class MainController {
         List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
         model.addAttribute("manager", collect);
         System.out.println("admina");
-        return "adminT";
+        return "admin";
     }
 
     @GetMapping("/admin/active/manager/id/{id}")
@@ -158,7 +158,7 @@ public class MainController {
     public String manager(Manager manager) {
         accountEditor.setValue(manager);
         manager.setRole(Role.ROLE_MANAGER);
-        manager.setAccountNonLocked(true);
+        manager.setAccountNonLocked(false);
         accountService.save(manager);
         return "redirect:/";
     }
