@@ -73,6 +73,10 @@ public class MainController {
 //            throw new IllegalStateException();
 //        }
 //    }
+//    @GetMapping("/adminPage")
+//    public String adminPage (){
+//    return "adminT";
+//    }
 
     @GetMapping("/managerPage")
     public String managerPage(Model model) {
@@ -116,10 +120,6 @@ public class MainController {
         return "adminT";
     }
 
-    @PostMapping("/ok")
-    public String ok(Model model) {
-        return "ok";
-    }
 
     //AdminController
     @GetMapping("/admin/page")

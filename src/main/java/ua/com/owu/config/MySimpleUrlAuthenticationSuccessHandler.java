@@ -1,6 +1,4 @@
 package ua.com.owu.config;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
@@ -50,6 +48,7 @@ public  class MySimpleUrlAuthenticationSuccessHandler
     protected String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
         boolean isManager = false;
+        boolean isAdmin=false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
@@ -59,14 +58,20 @@ public  class MySimpleUrlAuthenticationSuccessHandler
             } else if (grantedAuthority.getAuthority().equals("ROLE_MANAGER")) {
                 isManager = true;
                 break;
+            }else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
+                isAdmin=true;
+                break;
             }
+
         }
 
         if (isUser) {
             return "index";
         } else if (isManager) {
             return "managerPage";
-        } else {
+        }else if (isAdmin) {
+            return "createAdmin";
+        }else {
             throw new IllegalStateException();
         }
     }
