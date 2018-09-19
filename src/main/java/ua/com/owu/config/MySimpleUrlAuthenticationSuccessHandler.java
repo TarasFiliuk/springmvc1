@@ -16,7 +16,7 @@ import java.util.Collection;
 public  class MySimpleUrlAuthenticationSuccessHandler
         implements AuthenticationSuccessHandler {
 
-    protected Log logger = LogFactory.getLog(this.getClass());///
+    protected Log logger = LogFactory.getLog(this.getClass());//
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
