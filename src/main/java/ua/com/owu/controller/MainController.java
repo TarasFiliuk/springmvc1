@@ -6,6 +6,7 @@ import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,14 +49,51 @@ public class MainController {
 
     @Autowired
     TokenUtils tokenUtils;
+//    @PostMapping("/login")
+//    public String login (Authentication authentication){
+//        boolean isUser = false;
+//        boolean isManager = false;
+//        Collection<? extends GrantedAuthority> authorities
+//                = authentication.getAuthorities();
+//        for (GrantedAuthority grantedAuthority : authorities) {
+//            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+//                isUser = true;
+//                break;
+//            } else if (grantedAuthority.getAuthority().equals("ROLE_MANAGER")) {
+//                isManager = true;
+//                break;
+//            }
+//        }
+//
+//        if (isUser) {
+//            return "index";
+//        } else if (isManager) {
+//            return "managerPage";
+//        } else {
+//            throw new IllegalStateException();
+//        }
+//    }
 
+    @GetMapping("/managerPage")
+    public String managerPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        Account byUsername = accountService.findByUsername(auth.getName());
+        Role role = byUsername.getRole();
+        String accountType = byUsername.getAccountType();
+        model.addAttribute("username", name);
+        model.addAttribute("role", role);
+        model.addAttribute("accType", accountType);
+        System.out.println(name);
+        return "managerPage";
+    }
 
     @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @PostMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -74,7 +113,7 @@ public class MainController {
         Admin admin = new Admin(Role.ROLE_ADMIN, "admin", "admin", "as@as");
         accountEditor.setValue(admin);
         accountService.save(admin);
-        return "index";
+        return "adminT";
     }
 
     @PostMapping("/ok")
@@ -90,7 +129,7 @@ public class MainController {
         Stream<Account> stream = manager.stream();
         List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
         model.addAttribute("manager", collect);
-        return "adminT";
+        return "index";
     }
 
     @GetMapping("/admin/active/manager/id/{id}")
@@ -104,7 +143,6 @@ public class MainController {
     }
 
     //USERcONTROLLER
-
 
     @PostMapping("/save")
     public String save(User user,
@@ -135,7 +173,6 @@ public class MainController {
     }
 
 
-
     @GetMapping("/confirm/{token}")
     public String accontConfirm(@PathVariable String token) {
         Account byToken = accountService.findByToken(token);
@@ -161,11 +198,11 @@ public class MainController {
         accountService.save(manager);
         return "redirect:/";
     }
-    @GetMapping("/create/manager_page")
-    public String managerRegistration() {
-
-
-        return "managerRegistration";
-    }
+//    @GetMapping("/create/manager_page")
+//    public String managerRegistration() {
+//
+//
+//        return "managerRegistration";
+//    }
 
 }

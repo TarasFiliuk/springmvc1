@@ -6,24 +6,28 @@
 </head>
 <body>
 
-<div>
-<form th:action="@{/save}" method="post">
-    <input type="text" name="username" placeholder="name" style="margin-top: 5px"><br>
-    <!--<input type="text" name="firstName" placeholder="firstname" style="margin-top: 5px">-->
-    <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
-    <input type="email" name="email" placeholder="email" style="margin-top: 5px"><br>
-    <input type="password" name="password" placeholder="pass" style="margin-top: 5px"><br>
-    <input type="submit" name="" placeholder="" style="margin-top: 5px">
 
-    <input type="hidden"
-           name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-</form>
+<div>
+    <form th:action="@{/save}" method="post" id="form">
+
+        <input type="text" name="username" placeholder="name" style="margin-top: 5px"><br>
+        <!--<input type="text" name="firstName" placeholder="firstname" style="margin-top: 5px">-->
+        <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
+        <input type="email" name="email" placeholder="email" style="margin-top: 5px"><br>
+        <input type="password" name="password" placeholder="pass" style="margin-top: 5px"><br>
+        <input type="submit" name="" placeholder="" style="margin-top: 5px">
+        <input type="radio" name="acctype" value="user" onclick="change1()">user<br>
+        <input type="radio" name="acctype" value="manager" onclick="change()">manager
+
+        <input type="hidden"
+               name="${_csrf.parameterName}"
+               value="${_csrf.token}"/>
+    </form>
 </div>
 
 
 <!--jkkjj-->
-<p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>
+<!--<p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>-->
 
 <p><a th:href="'/admin/page'" th:text="'Admin page'"></a></p>
 <p><a th:href="'/createAdmin'" th:text="'Create Admin'"></a></p>
@@ -61,7 +65,7 @@
            value="${_csrf.token}"/>
 </form>
 <div th:if="${#strings.isEmpty(username)}">
-<h3>Hello</h3>
+    <h3>Hello</h3>
     <form th:action="@{/login}" method="post">
         <input type="text" name="username" placeholder="username">
         <input type="password" name="password" placeholder="password">
@@ -71,9 +75,9 @@
                value="${_csrf.token}"/>
 </div>
 <div th:unless="${#strings.isEmpty(username)}">
-<h3> Person name - <em th:text=" ${username}"></em></h3>
-<h3> Person role - <em th:text=" ${role}"></em></h3>
-<h3> Account role - <em th:text=" ${accType}"></em></h3>
+    <h3> Person name - <em th:text=" ${username}"></em></h3>
+    <h3> Person role - <em th:text=" ${role}"></em></h3>
+    <h3> Account role - <em th:text=" ${accType}"></em></h3>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout">
 
@@ -82,6 +86,16 @@
                value="${_csrf.token}"/>
     </form>
 </div>
+
+<script>
+    function change() {
+        document.getElementById("form").setAttribute('action', '/save/manager');
+    }
+
+    function change1() {
+        document.getElementById("form").setAttribute('action', '/save');
+    }
+</script>
 
 
 </body>
