@@ -9,17 +9,18 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int placeId;
     private String name;
-    private String adress;
+    private String address;
     private String city;
     private String specification;
+    private String about;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "place")
-    List<Manager> managers;
+    private List<Manager> managers;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "place")
-    List<UserTable> userTables;
+    private List<UserTable> userTables;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "place")
-    List<Event> events;
+    private List<Event> events;
 
 
 
@@ -39,12 +40,12 @@ public class Place {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {
@@ -87,12 +88,20 @@ public class Place {
         this.events = events;
     }
 
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
     @Override
     public String toString() {
         return "Place{" +
                 "placeId=" + placeId +
                 ", name='" + name + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", specification='" + specification + '\'' +
                 '}';
