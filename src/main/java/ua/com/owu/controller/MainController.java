@@ -6,20 +6,27 @@ import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import ua.com.owu.models.Account;
-import ua.com.owu.models.Admin;
-import ua.com.owu.models.Role;
+import ua.com.owu.models.*;
 import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.service.MailService;
 
 import ua.com.owu.utils.AccountEditor;
+import ua.com.owu.utils.TokenUtils;
+import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class MainController {
@@ -31,19 +38,66 @@ public class MainController {
     @Autowired
     private MailService mailService;
 
-
     @Autowired
     AccountService accountService;
 
     @Autowired
     AccountEditor accountEditor;
 
+    @Autowired
+    UserValidator userValidator;
+
+    @Autowired
+    TokenUtils tokenUtils;
+//    @PostMapping("/login")
+//    public String login (Authentication authentication){
+//        boolean isUser = false;
+//        boolean isManager = false;
+//        Collection<? extends GrantedAuthority> authorities
+//                = authentication.getAuthorities();
+//        for (GrantedAuthority grantedAuthority : authorities) {
+//            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+//                isUser = true;
+//                break;
+//            } else if (grantedAuthority.getAuthority().equals("ROLE_MANAGER")) {
+//                isManager = true;
+//                break;
+//            }
+//        }
+//
+//        if (isUser) {
+//            return "index";
+//        } else if (isManager) {
+//            return "managerPage";
+//        } else {
+//            throw new IllegalStateException();
+//        }
+//    }
+//    @GetMapping("/adminPage")
+//    public String adminPage (){
+//    return "adminT";
+//    }
+
+    @GetMapping("/managerPage")
+    public String managerPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        Account byUsername = accountService.findByUsername(auth.getName());
+        Role role = byUsername.getRole();
+        String accountType = byUsername.getAccountType();
+        model.addAttribute("username", name);
+        model.addAttribute("role", role);
+        model.addAttribute("accType", accountType);
+        System.out.println(name);
+        return "managerPage";
+    }
+
     @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @PostMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -57,69 +111,98 @@ public class MainController {
         return "index";
     }
 
-
+    //temporary methods to  create  admin
     @GetMapping("/createAdmin")
     public String createAdmin() {
         Admin admin = new Admin(Role.ROLE_ADMIN, "admin", "admin", "as@as");
         accountEditor.setValue(admin);
         accountService.save(admin);
+        return "adminT";
+    }
+
+
+    //AdminController
+    @GetMapping("/admin/page")
+    String adminPage(Model model) {
+
+        List<Account> manager = accountService.findByAccountType("manager");
+        Stream<Account> stream = manager.stream();
+        List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
+        model.addAttribute("manager", collect);
         return "index";
     }
 
-    @PostMapping("/ok")
-    public String ok(Model model) {
-
-
-        return "ok";
-    }
-
-    @GetMapping("/books/input")
-    public String bookInput() {
-        return "";
-    }
-
-
-    @GetMapping("/times")
-    public String times() {
-        return "index";
-    }
-
-    @PostMapping("/times")
-    public String timesSave(
-            @RequestParam String date, @RequestParam String start, @RequestParam String end
+    @GetMapping("/admin/active/manager/id/{id}")
+    String confirm(
+            @PathVariable int id
     ) {
-
-
-        DateTime startDay = DateTime.parse(date);
-        DateTime endDay = startDay.plusHours(24);
-        DateTime startTime = startDay.plusHours(Integer.parseInt(start));
-        DateTime endTime = startDay.plusHours(Integer.parseInt(end));
-        Interval interval = new Interval(startTime, endTime);
-        Interval interval1 = new Interval(startDay, endDay);
-
-        System.out.println(startDay);
-        System.out.println(endDay);
-        System.out.println(startTime);
-        System.out.println(endTime);
-        System.out.println(interval1.gap(interval));
-        return "redirect:/times";
+        Account managerAccount = accountService.findbyId(id);
+        managerAccount.setAccountNonLocked(true);
+        accountService.save(managerAccount);
+        return "redirect:/admin/page";
     }
 
-    @PostMapping("/sentMail")
-    public String sentMail(
-            @RequestParam String email,
-            @RequestParam String subject,
-            @RequestParam String message
+    //USERcONTROLLER
 
-    ) {
+    @PostMapping("/save")
+    public String save(User user,
+                       BindingResult bindingResult,
+                       Model model
+    ) throws IOException {
+        String username = user.getUsername();
+        userValidator.validate(user, bindingResult);
+        user.setToken(tokenUtils.generateToken());
+        if (bindingResult.hasErrors()) {
+            String errorMessage = "";
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError allError : allErrors) {
+                String code = allError.getCode();
+                errorMessage += " " + environment.getProperty(code);
+            }
+            model.addAttribute("error", errorMessage);
+            return "index";
+        }
         try {
-            mailService.sendSimpleMessage(email, subject, message);
+            mailService.sendConfirmMessage(user.getEmail(), user);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
+        accountEditor.setValue(user);
+        accountService.save(user);
         return "redirect:/";
     }
 
+
+    @GetMapping("/confirm/{token}")
+    public String accontConfirm(@PathVariable String token) {
+        Account byToken = accountService.findByToken(token);
+        if (byToken != null) {
+            byToken.setToken(null);
+            byToken.setEnabled(true);
+            accountService.save(byToken);
+            System.out.println(byToken.getUsername() + " is approveed!");
+            return "login";
+        } else {
+            System.out.println("there is  no tokens  like  that!");
+            return "index";
+        }
+    }
+
+    //MANAGERCONTROLLER
+
+    @PostMapping("/save/manager")
+    public String manager(Manager manager) {
+        accountEditor.setValue(manager);
+        manager.setRole(Role.ROLE_MANAGER);
+        manager.setAccountNonLocked(false);
+        accountService.save(manager);
+        return "redirect:/";
+    }
+//    @GetMapping("/create/manager_page")
+//    public String managerRegistration() {
+//
+//
+//        return "managerRegistration";
+//    }
 
 }
