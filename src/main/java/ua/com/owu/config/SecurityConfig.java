@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/manager/**").hasRole("MANAGER")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                //.loginPage("/login")
                 .successHandler(myAuthenticationSuccessHandler())
                 .failureUrl("/error")
                 .and()

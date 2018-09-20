@@ -125,6 +125,11 @@ public class MainController {
     @GetMapping("/admin/page")
     String adminPage(Model model) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        model.addAttribute("adminName",name);
+
+
         List<Account> manager = accountService.findByAccountType("manager");
         Stream<Account> stream = manager.stream();
         List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
@@ -198,7 +203,15 @@ public class MainController {
         accountService.save(manager);
         return "redirect:/";
     }
-//    @GetMapping("/create/manager_page")
+
+
+    @GetMapping("/places")
+    public String places()
+    {
+       return "places" ;
+    }
+
+    //    @GetMapping("/create/manager_page")
 //    public String managerRegistration() {
 //
 //

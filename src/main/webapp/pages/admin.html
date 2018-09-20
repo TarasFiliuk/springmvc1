@@ -35,12 +35,18 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+            <input class="form-control mr-sm-2" type="submit" value="Logout">
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+        </form>
     </div>
 </nav>
 
 <div class=" container p-5">
     <div class="row p-3 mt-5 border bg-light rounded ">
-        <p class="col text-left m-0">Vasya</p>
+        <p class="col text-left m-0" th:text="${adminName}"></p>
         <p class="col text-right text-danger m-0">Admin</p>
     </div>
     <div class="p-3 border rounded row">
