@@ -117,7 +117,7 @@ public class MainController {
         Admin admin = new Admin(Role.ROLE_ADMIN, "admin", "admin", "as@as");
         accountEditor.setValue(admin);
         accountService.save(admin);
-        return "adminT";
+        return "index";
     }
 
 
@@ -129,7 +129,7 @@ public class MainController {
         Stream<Account> stream = manager.stream();
         List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
         model.addAttribute("manager", collect);
-        return "index";
+        return "admin";
     }
 
     @GetMapping("/admin/active/manager/id/{id}")

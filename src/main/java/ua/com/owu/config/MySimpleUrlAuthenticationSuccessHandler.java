@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
+
 public  class MySimpleUrlAuthenticationSuccessHandler
         implements AuthenticationSuccessHandler {
 
@@ -70,7 +71,7 @@ public  class MySimpleUrlAuthenticationSuccessHandler
         } else if (isManager) {
             return "managerPage";
         }else if (isAdmin) {
-            return "createAdmin";
+            return "/admin/page";
         }else {
             throw new IllegalStateException();
         }
