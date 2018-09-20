@@ -127,7 +127,7 @@ public class MainController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
-        model.addAttribute("adminName",name);
+        model.addAttribute("adminName", name);
 
 
         List<Account> manager = accountService.findByAccountType("manager");
@@ -204,11 +204,19 @@ public class MainController {
         return "redirect:/";
     }
 
+    @PostMapping("/save/admin")
+    public String saveAdmin(Admin admin) {
+        accountEditor.setValue(admin);
+        admin.setRole(Role.ROLE_ADMIN);
+        admin.setAccountNonLocked(true);
+        accountService.save(admin);
+        return "redirect:/";
+    }
+
 
     @GetMapping("/places")
-    public String places()
-    {
-       return "places" ;
+    public String places() {
+        return "places";
     }
 
     //    @GetMapping("/create/manager_page")
