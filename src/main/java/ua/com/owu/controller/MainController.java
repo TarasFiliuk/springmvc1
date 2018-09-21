@@ -1,6 +1,7 @@
 package ua.com.owu.controller;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,5 +226,13 @@ public class MainController {
 //
 //        return "managerRegistration";
 //    }
+    @PostMapping("/admin/search")
+    public String serchCustom(Model model){
+    return null ;
+    }
+
 
 }
+
+//for maincontroller
+
