@@ -1,5 +1,6 @@
 package ua.com.owu.service.AccountService;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,12 +21,14 @@ public class AccountServiceImpl implements AccountService {
     AccountDAO accountDAO;
 
     @Override
+    @Transactional
     public void save(Account account) {
         accountDAO.save(account);
     }
 
     @Override
-    public Account findbyId(int id) {
+    @Transactional
+    public Account findById(int id) {
         return accountDAO.findOne(id);
     }
 
@@ -55,12 +58,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+
+    @Transactional
     public Account findByToken(String token) {
         return accountDAO.findByToken(token);
 
     }
 
     @Override
+    @Transactional
     public Account findByUsername(String username) {
         return accountDAO.findByUsername(username);
     }

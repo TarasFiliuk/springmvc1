@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.Account;
 import ua.com.owu.models.Manager;
@@ -11,9 +12,10 @@ import ua.com.owu.models.Place;
 import ua.com.owu.service.AccountService.AccountService;
 import ua.com.owu.service.placeService.PlaceService;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class PlaceController {
 
     final
@@ -26,38 +28,14 @@ public class PlaceController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/places")
-    public String createPlace(@RequestBody Place place){
-        Hibernate.initialize(place.getManagers());
-        if (SecurityContextHolder.getContext().getAuthentication() != null &&
-                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
-                !(SecurityContextHolder.getContext().getAuthentication()
-                        instanceof AnonymousAuthenticationToken) ){
-        Manager manager = (Manager) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (manager.getAccountType().equals("manager")) {
-                manager.setPlace(place);
-                place.addManager(manager);
-                accountService.save(manager);
-            }}
-            else {
-            Manager managerOwn = (Manager) accountService.findbyId(1);
-            managerOwn.setPlace(place);
-                accountService.save(managerOwn);
-                place.addManager(managerOwn);
-            }
-        System.out.println(place);
+    @PostMapping("manager-account/{id}/place")
+    public String createPlace(Place place, @PathVariable int id){
+        Manager manager = (Manager) accountService.findById(id);
         placeService.save(place);
-        return "Done!";
+        manager.setPlace(place);
+        accountService.save(manager);
+        return "redirect:/";
     }
 
-    @GetMapping("/places")
-    public List<Place> getPlaces(){
-        return placeService.findAll();
-    }
-
-    @GetMapping("/places/{id}")
-    public Place getOne(@PathVariable int id){
-        return placeService.findById(id);
-    }
 
 }

@@ -4,6 +4,7 @@ package ua.com.owu.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ua.com.owu.models.Account;
+import ua.com.owu.models.Manager;
 import ua.com.owu.models.Role;
 
 import java.util.List;
@@ -17,6 +18,5 @@ public interface AccountDAO extends JpaRepository<Account, Integer> {
     Account findByEmail(String email);
 
     Account findByToken(String token);
-
 
 }

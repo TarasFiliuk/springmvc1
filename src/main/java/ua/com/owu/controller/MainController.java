@@ -115,10 +115,7 @@ public class MainController {
         return "redirect:/";
     }
 
-    @GetMapping("/manPageTest")
-    public String manPage(){
-    return "managerPage";
-    }
+
 
 
 

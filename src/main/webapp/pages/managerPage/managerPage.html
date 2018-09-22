@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -114,7 +114,7 @@
                 <div class="tab-pane fade" id="create-place-pills" role="tabpanel"
                      aria-labelledby="create-place-pills-tab">
                     <div class="card card-body">
-                        <form>
+                        <form method="post" action="" th:action="@{/manager-account/1/place}">
                             <div class="form-group row">
                                 <label for="pName" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
@@ -125,21 +125,21 @@
                             <div class="form-group row">
                                 <label for="pAddress" class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="address" class="form-control"
                                            id="pAddress" placeholder="Enter place`s address">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="pCity" class="col-sm-3 col-form-label">City</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="city" class="form-control"
                                            id="pCity" placeholder="Enter place`s city">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="pSpecification" class="col-sm-3 col-form-label">Specification</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="specification" class="form-control"
                                            id="pSpecification"
                                            placeholder="Enter place`s specification">
                                 </div>
@@ -155,7 +155,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
+                                    <button type="submit" class="btn btn-success px-4 py-2 my-3">Create</button>
                                 </div>
                             </div>
                         </form>
@@ -164,7 +164,7 @@
                 <div class="tab-pane fade" id="update-place-pills" role="tabpanel"
                      aria-labelledby="update-place-pills-tab">
                     <div class="card card-body">
-                        <form>
+                        <form method="post" action="" th:action="@{manager-account/1/place/update}">
                             <div class="form-group row">
                                 <label for="place-update-name" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
@@ -175,14 +175,14 @@
                             <div class="form-group row">
                                 <label for="place-update-address" class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="address" class="form-control"
                                            id="place-update-address" placeholder="Enter place`s address">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="place-update-city" class="col-sm-3 col-form-label">City</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="city" class="form-control"
                                            id="place-update-city" placeholder="Enter place`s city">
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                 <label for="place-update-specification"
                                        class="col-sm-3 col-form-label">Specification</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="specification" class="form-control"
                                            id="place-update-specification"
                                            placeholder="Enter place`s specification">
                                 </div>
