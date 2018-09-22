@@ -1,9 +1,5 @@
 package ua.com.owu.models;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -11,8 +7,8 @@ import java.util.*;
 @DiscriminatorValue("manager")
 public class Manager  extends Account{
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    Place place;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REFRESH)
+    private Place place;
     public Place getPlace() {
         return place;
     }
@@ -27,6 +23,7 @@ public class Manager  extends Account{
     }
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "managers")
+    private
     List<UserOrder> userOrders;
     public List<UserOrder> getUserOrders() {
         return userOrders;

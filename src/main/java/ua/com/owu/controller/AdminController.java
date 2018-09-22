@@ -9,7 +9,7 @@
 //import org.springframework.web.bind.annotation.PostMapping;
 //import ua.com.owu.models.Account;
 //import ua.com.owu.models.Role;
-//import ua.com.owu.service.AccountService.AccountService;
+//import ua.com.owu.service.accountService.accountService;
 //
 //import java.util.List;
 //import java.util.stream.Collectors;
@@ -19,7 +19,7 @@
 //public class AdminController {
 //
 //    @Autowired
-//    AccountService accountService;
+//    accountService accountService;
 //
 //    @GetMapping("/admin/page")
 //    String adminPage(Model model){

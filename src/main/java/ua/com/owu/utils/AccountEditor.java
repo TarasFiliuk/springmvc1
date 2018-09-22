@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ua.com.owu.models.Account;
-import ua.com.owu.models.User;
 
 import java.beans.PropertyEditorSupport;
 
@@ -13,8 +12,13 @@ import java.beans.PropertyEditorSupport;
 public class AccountEditor extends PropertyEditorSupport {
 
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AccountEditor(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public void setValue(Object value) {
         Account account = (Account) value;

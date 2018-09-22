@@ -1,8 +1,8 @@
 package ua.com.owu.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Place {
@@ -18,7 +18,7 @@ public class Place {
     private List<Manager> managers;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "place")
-    private List<UserTable> userTables;
+    private List<PlaceTable> placeTables;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "place")
     private List<Event> events;
@@ -74,12 +74,12 @@ public class Place {
         this.managers = managers;
     }
 
-    public List<UserTable> getUserTables() {
-        return userTables;
+    public List<PlaceTable> getPlaceTables() {
+        return placeTables;
     }
 
-    public void setUserTables(List<UserTable> userTables) {
-        this.userTables = userTables;
+    public void setPlaceTables(List<PlaceTable> placeTables) {
+        this.placeTables = placeTables;
     }
 
     public List<Event> getEvents() {
@@ -100,6 +100,27 @@ public class Place {
 
     public void addManager(Manager manager){
         managers.add(manager);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return placeId == place.placeId &&
+                Objects.equals(name, place.name) &&
+                Objects.equals(address, place.address) &&
+                Objects.equals(city, place.city) &&
+                Objects.equals(specification, place.specification) &&
+                Objects.equals(about, place.about) &&
+                Objects.equals(managers, place.managers) &&
+                Objects.equals(placeTables, place.placeTables) &&
+                Objects.equals(events, place.events);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placeId, name, address, city, specification, about, managers, placeTables, events);
     }
 
     @Override

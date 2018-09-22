@@ -11,8 +11,8 @@
 //import org.springframework.web.bind.annotation.PostMapping;
 //import ua.com.owu.models.Account;
 //import ua.com.owu.models.User;
-//import ua.com.owu.service.MailService;
-//import ua.com.owu.service.AccountService.AccountService;
+//import ua.com.owu.service.mailService.MailService;
+//import ua.com.owu.service.accountService.accountService;
 //import ua.com.owu.utils.TokenUtils;
 //import ua.com.owu.utils.AccountEditor;
 //import ua.com.owu.utils.UserValidator;
@@ -38,7 +38,7 @@
 //
 //
 //    @Autowired
-//    private AccountService accountService;
+//    private accountService accountService;
 //
 //   @Autowired
 //   TokenUtils tokenUtils;

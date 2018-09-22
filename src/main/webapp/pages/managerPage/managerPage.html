@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -32,185 +32,186 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+            <input class="form-control mr-sm-2" type="submit" value="Logout">
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
         </form>
     </div>
 </nav>
 
 <div class=" container p-5">
     <div class="row p-3 mt-5 border bg-light rounded ">
-        <p class="col text-left m-0">Vasya</p>
+        <p class="col text-left m-0" th:text="${manager.getUsername()}"></p>
         <p class="col text-right text-danger m-0">Manager</p>
     </div>
     <div class="p-3 border rounded row">
         <div class="col-md-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="edit-pills-tab" data-toggle="pill" href="#edit-pills" role="tab"
-                   aria-controls="edit-pills" aria-selected="true">Editing</a>
+                <a class="nav-link active  " id="edit-pills-tab" data-toggle="pill" href="#edit-pills" role="tab"
+                   aria-controls="edit-pills" aria-selected="true">Edit personal information</a>
                 <a class="nav-link" id="create-place-pills-tab" data-toggle="pill" href="#create-place-pills"
                    role="tab"
-                   aria-controls="create-place-pills" aria-selected="false">Create place</a>
-                <a class="nav-link" id="update-place-pills-tab" data-toggle="pill" href="#update-place-pills"
+                   aria-controls="create-place-pills" aria-selected="false" th:unless="${place}">Create
+                    place</a>
+                <a class="nav-link " id="update-place-pills-tab" data-toggle="pill" href="#update-place-pills"
                    role="tab"
-                   aria-controls="create-place-pills" aria-selected="false">Update</a>
+                   aria-controls="create-place-pills" aria-selected="false" th:if="${place}">Edit place</a>
             </div>
         </div>
         <div class="col-md-9">
             <div class="tab-content" id="v-pills-tabContent">
 
-                <div class="tab-pane show active fade" id="edit-pills" role="tabpanel" aria-labelledby="edit-pills-tab">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group row">
-                                    <label for="musername" class="col-sm-2 col-form-label">Username</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" name="username" id="musername"
-                                               placeholder="Username">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="memail" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" name="email" id="memail"
-                                               placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="mpassword" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" name="password" class="form-control"
-                                               id="mpassword" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="mfirstName" class="col-sm-2 col-form-label">First name</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" name="password" class="form-control"
-                                               id="mfirstName" placeholder="Enter your first name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="mlastName" class="col-sm-2 col-form-label">Last name</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" name="password" class="form-control"
-                                               id="mlastName" placeholder="Enter your last name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
-                                    </div>
-                                </div>
-                            </form>
+                <div class="tab-pane fade  show active" id="edit-pills" role="tabpanel" aria-labelledby="edit-pills-tab">
+                    <form>
+                        <div class="form-group row">
+                            <label for="musername" class="col-sm-2 col-form-label">Username</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="username" id="musername"
+                                       placeholder="Username" th:value="${manager.getUsername()}">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label for="memail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="email" id="memail"
+                                       placeholder="Email" th:value="${manager.getEmail()}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mpassword" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" name="password" class="form-control"
+                                       id="mpassword" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mfirstName" class="col-sm-2 col-form-label">First name</label>
+                            <div class="col-sm-10">
+                                <input type="password" name="firstName" class="form-control"
+                                       id="mfirstName" placeholder="Enter your first name"
+                                       th:value="${manager.getFirstName()}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mlastName" class="col-sm-2 col-form-label">Last name</label>
+                            <div class="col-sm-10">
+                                <input type="password" name="lastName" class="form-control"
+                                       id="mlastName" placeholder="Enter your last name"
+                                       th:value="${manager.getLastName()}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <a class="text-danger text-right" th:href="@{/manager-account/delete}">Delete profile</a>
+
                 </div>
 
                 <div class="tab-pane fade" id="create-place-pills" role="tabpanel"
-                     aria-labelledby="create-place-pills-tab">
-                    <div class="card card-body">
-                        <form method="post" action="" th:action="@{/manager-account/1/place}">
-                            <div class="form-group row">
-                                <label for="pName" class="col-sm-3 col-form-label">Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
-                                           id="pName" placeholder="Enter place`s name">
-                                </div>
+                     aria-labelledby="create-place-pills-tab" th:unless="${place}">
+                    <form method="post" action="" th:action="@{/manager-account/place}">
+                        <div class="form-group row">
+                            <label for="pName" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="name" class="form-control"
+                                       id="pName" placeholder="Enter place`s name">
                             </div>
-                            <div class="form-group row">
-                                <label for="pAddress" class="col-sm-3 col-form-label">Address</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="address" class="form-control"
-                                           id="pAddress" placeholder="Enter place`s address">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pAddress" class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="address" class="form-control"
+                                       id="pAddress" placeholder="Enter place`s address">
                             </div>
-                            <div class="form-group row">
-                                <label for="pCity" class="col-sm-3 col-form-label">City</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="city" class="form-control"
-                                           id="pCity" placeholder="Enter place`s city">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pCity" class="col-sm-3 col-form-label">City</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="city" class="form-control"
+                                       id="pCity" placeholder="Enter place`s city">
                             </div>
-                            <div class="form-group row">
-                                <label for="pSpecification" class="col-sm-3 col-form-label">Specification</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="specification" class="form-control"
-                                           id="pSpecification"
-                                           placeholder="Enter place`s specification">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pSpecification" class="col-sm-3 col-form-label">Specification</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="specification" class="form-control"
+                                       id="pSpecification"
+                                       placeholder="Enter place`s specification">
                             </div>
-                            <div class="form-group row">
-                                <label for="place-create-about" class="col-sm-3 col-form-label">About</label>
-                                <div class="col-sm-9">
+                        </div>
+                        <div class="form-group row">
+                            <label for="place-create-about" class="col-sm-3 col-form-label">About</label>
+                            <div class="col-sm-9">
                                     <textarea name="about" class="form-control"
                                               id="place-create-about"
                                               placeholder="Enter smth about your place" rows="3">
                                     </textarea>
-                                </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-success px-4 py-2 my-3">Create</button>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Create</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="update-place-pills" role="tabpanel"
-                     aria-labelledby="update-place-pills-tab">
-                    <div class="card card-body">
-                        <form method="post" action="" th:action="@{manager-account/1/place/update}">
-                            <div class="form-group row">
-                                <label for="place-update-name" class="col-sm-3 col-form-label">Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control"
-                                           id="place-update-name" placeholder="Enter place`s name">
-                                </div>
+                     aria-labelledby="update-place-pills-tab" th:if="${place}">
+                    <form method="post" action="" th:action="@{manager-account/place/update}">
+                        <div class="form-group row">
+                            <label for="place-update-name" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="name" class="form-control"
+                                       id="place-update-name" placeholder="Enter place`s name"
+                                       th:value="${place.getName()}">
                             </div>
-                            <div class="form-group row">
-                                <label for="place-update-address" class="col-sm-3 col-form-label">Address</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="address" class="form-control"
-                                           id="place-update-address" placeholder="Enter place`s address">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="place-update-address" class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="address" class="form-control"
+                                       id="place-update-address" placeholder="Enter place`s address"
+                                       th:value="${place.getAddress()}">
                             </div>
-                            <div class="form-group row">
-                                <label for="place-update-city" class="col-sm-3 col-form-label">City</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="city" class="form-control"
-                                           id="place-update-city" placeholder="Enter place`s city">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="place-update-city" class="col-sm-3 col-form-label">City</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="city" class="form-control"
+                                       id="place-update-city" placeholder="Enter place`s city"
+                                       th:value="${place.getCity()}">
                             </div>
-                            <div class="form-group row">
-                                <label for="place-update-specification"
-                                       class="col-sm-3 col-form-label">Specification</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="specification" class="form-control"
-                                           id="place-update-specification"
-                                           placeholder="Enter place`s specification">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="place-update-specification"
+                                   class="col-sm-3 col-form-label">Specification</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="specification" class="form-control"
+                                       id="place-update-specification"
+                                       placeholder="Enter place`s specification" th:value="${place.getSpecification()}">
                             </div>
-                            <div class="form-group row">
-                                <label for="place-update-about" class="col-sm-3 col-form-label">About</label>
-                                <div class="col-sm-9">
-                                    <textarea name="about" class="form-control"
-                                              id="place-update-about"
-                                              placeholder="Enter smth about your place" rows="3" >
-                                    </textarea>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="place-update-about" class="col-sm-3 col-form-label">About</label>
+                            <div class="col-sm-9">
+                            <textarea class="form-control" name="about" id="place-update-about" cols="30" rows="3"
+                                      placeholder="Write some words about your place!">[[${place.getAbout()}]]</textarea>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+                    <a class="text-danger ml-auto" th:href="@{/manager-account/place/delete}">Delete place</a>
                 </div>
             </div>
         </div>

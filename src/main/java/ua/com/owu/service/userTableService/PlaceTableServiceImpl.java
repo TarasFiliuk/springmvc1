@@ -4,19 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.UserTableDAO;
-import ua.com.owu.models.UserTable;
+import ua.com.owu.models.PlaceTable;
+
 @Service
 @Transactional
-public class UserTableServiceImpl implements UserTableService {
+public class PlaceTableServiceImpl implements PlaceTableService {
+    private final UserTableDAO userTableDAO;
+
     @Autowired
-    UserTableDAO userTableDAO;
+    public PlaceTableServiceImpl(UserTableDAO userTableDAO) {
+        this.userTableDAO = userTableDAO;
+    }
+
     @Override
-    public UserTable findByCapacity(int capacity) {
+    public PlaceTable findByCapacity(int capacity) {
         return userTableDAO.findByCapacity(capacity);
     }
 
     @Override
-    public UserTable findByTableId(int idTable) {
+    public PlaceTable findByTableId(int idTable) {
         return userTableDAO.findByTableId(idTable);
     }
 }
