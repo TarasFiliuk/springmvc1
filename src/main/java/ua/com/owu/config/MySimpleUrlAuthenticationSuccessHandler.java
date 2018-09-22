@@ -69,7 +69,7 @@ public  class MySimpleUrlAuthenticationSuccessHandler
         if (isUser) {
             return "index";
         } else if (isManager) {
-            return "managerPage";
+            return "/manager-account";
         }else if (isAdmin) {
             return "/admin/page";
         }else {

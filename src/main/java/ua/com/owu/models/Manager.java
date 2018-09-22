@@ -11,8 +11,8 @@ import java.util.*;
 @DiscriminatorValue("manager")
 public class Manager  extends Account{
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    Place place;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REFRESH)
+    private Place place;
     public Place getPlace() {
         return place;
     }

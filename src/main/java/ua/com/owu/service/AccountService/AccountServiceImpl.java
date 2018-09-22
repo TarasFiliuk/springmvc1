@@ -70,4 +70,15 @@ public class AccountServiceImpl implements AccountService {
     public Account findByUsername(String username) {
         return accountDAO.findByUsername(username);
     }
+
+    @Override
+    @Transactional
+    public void deleteById(int id) {
+        accountDAO.delete(id);
+    }
+
+    @Override
+    public void update(int id, Account account) {
+        Account one = accountDAO.findOne(id);
+    }
 }

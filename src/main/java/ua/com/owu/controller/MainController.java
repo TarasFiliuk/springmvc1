@@ -142,7 +142,7 @@ public class MainController {
     String confirm(
             @PathVariable int id
     ) {
-        Account managerAccount = accountService.findbyId(id);
+        Account managerAccount = accountService.findById(id);
         managerAccount.setAccountNonLocked(true);
         accountService.save(managerAccount);
         return "redirect:/admin/page";
@@ -180,13 +180,13 @@ public class MainController {
 
 
     @GetMapping("/confirm/{token}")
-    public String accontConfirm(@PathVariable String token) {
+    public String accountConfirm(@PathVariable String token) {
         Account byToken = accountService.findByToken(token);
         if (byToken != null) {
             byToken.setToken(null);
             byToken.setEnabled(true);
             accountService.save(byToken);
-            System.out.println(byToken.getUsername() + " is approveed!");
+            System.out.println(byToken.getUsername() + " is approved!");
             return "login";
         } else {
             System.out.println("there is  no tokens  like  that!");
@@ -194,16 +194,6 @@ public class MainController {
         }
     }
 
-    //MANAGERCONTROLLER
-
-    @PostMapping("/save/manager")
-    public String manager(Manager manager) {
-        accountEditor.setValue(manager);
-        manager.setRole(Role.ROLE_MANAGER);
-        manager.setAccountNonLocked(false);
-        accountService.save(manager);
-        return "redirect:/";
-    }
 
     @PostMapping("/save/admin")
     public String saveAdmin(Admin admin) {

@@ -13,5 +13,7 @@ public interface AccountService  extends UserDetailsService{
     Account findByEmail(String email);
     Account findByToken (String token);
     Account findByUsername(String username);
+    void deleteById(int id);
+    void update(int id, Account account);
 
 }

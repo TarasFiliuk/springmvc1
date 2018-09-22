@@ -1,22 +1,31 @@
 package ua.com.owu.service.placeService;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.owu.dao.AccountDAO;
 import ua.com.owu.dao.PlaceDAO;
+import ua.com.owu.models.Account;
 import ua.com.owu.models.Event;
 import ua.com.owu.models.Manager;
 import ua.com.owu.models.Place;
-import ua.com.owu.service.placeService.PlaceService;
 
 import java.util.List;
 
 @Service
 @Transactional
 public class PlaceServiceImp implements PlaceService {
-    @Autowired
+    final
     PlaceDAO placeDAO;
+    final AccountDAO accountDAO;
+
+    @Autowired
+    public PlaceServiceImp(PlaceDAO placeDAO, AccountDAO accountDAO) {
+        this.placeDAO = placeDAO;
+        this.accountDAO = accountDAO;
+    }
 
     @Override
     public Place findByAddress(String address) {
@@ -51,13 +60,16 @@ public class PlaceServiceImp implements PlaceService {
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         placeDAO.delete(id);
     }
 
     @Override
-    public void update(int id, Place place) {
-        place.setPlaceId(placeDAO.findOne(id).getPlaceId());
+    @Transactional
+    public void update(Manager manager, Place place) {
+        Manager managerDB = (Manager) accountDAO.findByUsername(manager.getUsername());
+        place.setPlaceId(managerDB.getPlace().getPlaceId());
         placeDAO.save(place);
     }
 
@@ -66,5 +78,14 @@ public class PlaceServiceImp implements PlaceService {
     public List<Place> findAll() {
         return placeDAO.findAll();
     }
+
+    @Override
+    @Transactional
+    public Place findByManagerId(int id) {
+        Manager manager = (Manager) accountDAO.findOne(id);
+        Hibernate.initialize(manager.getPlace());
+        return manager.getPlace();
+    }
+
 
 }

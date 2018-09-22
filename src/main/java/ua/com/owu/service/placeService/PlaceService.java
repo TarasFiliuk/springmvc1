@@ -15,7 +15,8 @@ public interface PlaceService  {
     Place findById (int id);
     void save(Place place);
     void deleteById(int id);
-    void update(int id , Place place);
+    void update(Manager manager , Place place);
     List<Place> findAll();
+    Place findByManagerId(int id);
 
 }

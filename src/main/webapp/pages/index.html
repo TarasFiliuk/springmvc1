@@ -8,6 +8,7 @@
 
 
 <div>
+    <h1>Sign Up</h1>
     <form th:action="@{/save}" method="post" id="form">
 
         <input type="text" name="username" placeholder="name" style="margin-top: 5px"><br>
@@ -15,10 +16,10 @@
         <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
         <input type="email" name="email" placeholder="email" style="margin-top: 5px"><br>
         <input type="password" name="password" placeholder="pass" style="margin-top: 5px"><br>
-        <input type="submit" name="" placeholder="" style="margin-top: 5px"><br>
-        <input type="radio" name="acctype" value="user" onclick="change1()">user<br>
-        <input type="radio" name="acctype" value="manager" onclick="change()">manager<br>
+        <input type="radio" name="acctype" value="user" onclick="change()">user<br>
+        <input type="radio" name="acctype" value="manager" onclick="change1()">manager<br>
         <input type="radio" name="acctype" value="admin" onclick="change2()">admin<br>
+        <input type="submit" name="" placeholder="" style="margin-top: 5px"><br>
 
         <input type="hidden"
                name="${_csrf.parameterName}"
@@ -34,6 +35,7 @@
 <p><a th:href="'/createAdmin'" th:text="'Create Admin'"></a></p>
 <p><a th:href="'/places'" th:text="'places'"></a></p>
 
+<h1>Send Email</h1>
 <form th:action="@{/sentMail}" method="post">
     <input type="email" name="email" placeholder="mail">
     <input type="text" name="subject" placeholder="subject">
@@ -77,6 +79,7 @@
         <input type="hidden"
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>
+    </form>
 </div>
 <div th:unless="${#strings.isEmpty(username)}">
     <h3> Person name - <em th:text=" ${username}"></em></h3>

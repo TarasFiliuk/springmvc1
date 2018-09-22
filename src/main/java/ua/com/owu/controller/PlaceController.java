@@ -28,13 +28,20 @@ public class PlaceController {
         this.accountService = accountService;
     }
 
-    @PostMapping("manager-account/{id}/place")
-    public String createPlace(Place place, @PathVariable int id){
-        Manager manager = (Manager) accountService.findById(id);
+    @PostMapping("manager-account/place")
+    public String createPlace(Place place){
+        Manager manager = (Manager) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         placeService.save(place);
         manager.setPlace(place);
         accountService.save(manager);
-        return "redirect:/";
+        return "redirect:/manager-account";
+    }
+
+    @PostMapping("manager-account/place/update")
+    public String updatePlace(Place place){
+        Manager manager = (Manager) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        placeService.update(manager, place);
+        return "redirect:/manager-account";
     }
 
 
