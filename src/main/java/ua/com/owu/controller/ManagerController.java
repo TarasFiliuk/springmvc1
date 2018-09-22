@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.owu.models.*;
-import ua.com.owu.service.AccountService.AccountService;
+import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.service.placeService.PlaceService;
 import ua.com.owu.utils.AccountEditor;
 

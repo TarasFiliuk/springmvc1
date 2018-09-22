@@ -1,6 +1,5 @@
-package ua.com.owu.service.AccountService;
+package ua.com.owu.service.accountService;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,16 +8,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.AccountDAO;
 import ua.com.owu.models.Account;
-import ua.com.owu.models.Role;
 
 import java.util.List;
 
 @Service
 @Transactional
-@Component("accoutServiceImpl")
 public class AccountServiceImpl implements AccountService {
-    @Autowired
+    private final
     AccountDAO accountDAO;
+
+    @Autowired
+    public AccountServiceImpl(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
 
     @Override
     @Transactional

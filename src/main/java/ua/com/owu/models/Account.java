@@ -1,13 +1,12 @@
 package ua.com.owu.models;
 
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -173,6 +172,31 @@ public abstract class Account implements UserDetails {
     }
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id == account.id &&
+                isAccountNonExpired == account.isAccountNonExpired &&
+                isAccountNonLocked == account.isAccountNonLocked &&
+                isCredentialsNonExpired == account.isCredentialsNonExpired &&
+                isEnabled == account.isEnabled &&
+                Objects.equals(accountType, account.accountType) &&
+                role == account.role &&
+                Objects.equals(password, account.password) &&
+                Objects.equals(username, account.username) &&
+                Objects.equals(email, account.email) &&
+                Objects.equals(firstName, account.firstName) &&
+                Objects.equals(lastName, account.lastName) &&
+                Objects.equals(token, account.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountType, id, role, password, username, email, firstName, lastName, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, token, isEnabled);
     }
 
 

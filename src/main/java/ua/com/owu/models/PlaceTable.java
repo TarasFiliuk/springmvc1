@@ -2,29 +2,30 @@ package ua.com.owu.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class UserTable {
+public class PlaceTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tableId;
     private int capacity;/*кількість людей*/
 
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userTable")
-    List<UserOrder> userOrders;
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "placeTable")
+    private List<UserOrder> userOrders;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Place place;
+    private Place place;
 
-    public UserTable() {
+    public PlaceTable() {
     }
 
-    public UserTable(int capacity) {
+    public PlaceTable(int capacity) {
         this.capacity = capacity;
     }
 
-    public UserTable(int capacity, List<UserOrder> userOrders, Place place) {
+    public PlaceTable(int capacity, List<UserOrder> userOrders, Place place) {
         this.capacity = capacity;
         this.userOrders = userOrders;
         this.place = place;
@@ -47,8 +48,24 @@ public class UserTable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlaceTable that = (PlaceTable) o;
+        return tableId == that.tableId &&
+                capacity == that.capacity &&
+                Objects.equals(userOrders, that.userOrders) &&
+                Objects.equals(place, that.place);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tableId, capacity, userOrders, place);
+    }
+
+    @Override
     public String toString() {
-        return "UserTable{" +
+        return "PlaceTable{" +
                 "tableId=" + tableId +
                 ", capacity=" + capacity +
                 '}';

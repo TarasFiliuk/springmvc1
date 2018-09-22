@@ -31,8 +31,8 @@ import static org.hibernate.criterion.Restrictions.and;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    @Qualifier("accoutServiceImpl")
     @Autowired
+    @Qualifier("accountServiceImpl")
     UserDetailsService userDetailsService;
 
     @Bean
@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigurer() {
-        return new InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>();
+        return new InMemoryUserDetailsManagerConfigurer<>();
     }
 
 //    @Autowired

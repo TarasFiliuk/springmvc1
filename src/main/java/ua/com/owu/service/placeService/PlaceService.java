@@ -1,6 +1,5 @@
 package ua.com.owu.service.placeService;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import ua.com.owu.models.Event;
 import ua.com.owu.models.Manager;
 import ua.com.owu.models.Place;

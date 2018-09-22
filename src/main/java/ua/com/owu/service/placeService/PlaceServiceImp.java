@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.AccountDAO;
 import ua.com.owu.dao.PlaceDAO;
-import ua.com.owu.models.Account;
 import ua.com.owu.models.Event;
 import ua.com.owu.models.Manager;
 import ua.com.owu.models.Place;
@@ -17,9 +16,9 @@ import java.util.List;
 @Service
 @Transactional
 public class PlaceServiceImp implements PlaceService {
-    final
+    private final
     PlaceDAO placeDAO;
-    final AccountDAO accountDAO;
+    private final AccountDAO accountDAO;
 
     @Autowired
     public PlaceServiceImp(PlaceDAO placeDAO, AccountDAO accountDAO) {
