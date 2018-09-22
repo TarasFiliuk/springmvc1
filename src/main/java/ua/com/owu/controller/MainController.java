@@ -111,6 +111,8 @@ public class MainController {
         return "index";
     }
 
+
+
     //temporary methods to  create  admin
     @GetMapping("/createAdmin")
     public String createAdmin() {
@@ -196,13 +198,29 @@ public class MainController {
     //MANAGERCONTROLLER
 
     @PostMapping("/save/manager")
-    public String manager(Manager manager) {
-        accountEditor.setValue(manager);
+    public String manager(Account manager) {
+
+        Manager manager1=(Manager) manager;
+        accountEditor.setValue(manager1);
         manager.setRole(Role.ROLE_MANAGER);
         manager.setAccountNonLocked(false);
-        accountService.save(manager);
+        accountService.save(manager1);
+        return "redirect:/";
+
+    }
+
+    @PostMapping("/save/admin")
+    public String manager(Admin admin) {
+        accountEditor.setValue(admin);
+        accountService.save(admin);
         return "redirect:/";
     }
+
+
+
+
+
+
 
 
     @GetMapping("/places")
