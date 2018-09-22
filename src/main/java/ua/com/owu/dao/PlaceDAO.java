@@ -6,7 +6,7 @@ import ua.com.owu.models.Event;
 import ua.com.owu.models.Place;
 @Repository
 public interface PlaceDAO extends JpaRepository<Place,Integer> {
-    Place findByAdress (String adress);
+    Place findByAddress (String address);
     Place findByCity (String city);
     Place findByName (String name);
     Place findByEvents (Event event);

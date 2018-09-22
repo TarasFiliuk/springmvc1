@@ -1,6 +1,7 @@
 package ua.com.owu.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,7 @@ public class Place {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "place")
     private List<Event> events;
+
 
 
 
@@ -94,6 +96,10 @@ public class Place {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public void addManager(Manager manager){
+        managers.add(manager);
     }
 
     @Override
