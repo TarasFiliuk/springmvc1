@@ -5,10 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @DiscriminatorValue("manager")
@@ -38,6 +35,19 @@ public class Manager  extends Account{
         this.userOrders = userOrders;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Manager manager = (Manager) o;
+        return Objects.equals(place, manager.place) &&
+                Objects.equals(userOrders, manager.userOrders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(place, userOrders);
+    }
 
 
 }
