@@ -57,7 +57,7 @@
                 <a class="nav-link" id="search-pills-tab" data-toggle="pill" href="#search-pills" role="tab"
                    aria-controls="search-pills" aria-selected="false">Account Search</a>
                 <a class="nav-link" id="create-admin-pills-tab" data-toggle="pill" href="#create-admin-pills" role="tab"
-                   aria-controls="create-admin-pills" aria-selected="false">Create admin</a>
+                   aria-controls="create-admin-pills" aria-selected="false">Create Account</a>
                 <a class="nav-link" id="edit-pills-tab" data-toggle="pill" href="#edit-pills" role="tab"
                    aria-controls="edit-pills" aria-selected="false">Editing</a>
             </div>
@@ -248,9 +248,9 @@
                             <div class="col-sm-10">
                                 <select type="text" class="form-control" name="accountType" id="AccountType"
                                         placeholder="AccountType" required>
-                                    <option value="user" data-action="/save">user</option>
-                                    <option value="manager" data-action="/save/manager">manager</option>
-                                    <option value="admin" data-action="/save/admin">admin</option>
+                                    <option value="user" data-action="/admin/saveUser">user</option>
+                                    <option value="manager" data-action="/admin/saveManager">manager</option>
+                                    <option value="admin" data-action="/admin/saveAdmin">admin</option>
                                 </select>
                             </div>
                         </div>
@@ -305,7 +305,7 @@
                         <!--</div>-->
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Create admin</button>
+                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Create account</button>
                             </div>
                         </div>
 

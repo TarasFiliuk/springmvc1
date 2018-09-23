@@ -20,8 +20,8 @@ public class ManagerController {
     private final
     AccountEditor accountEditor;
 
-
-    private final PlaceService placeService;
+    private final
+    PlaceService placeService;
 
     @Autowired
     public ManagerController(AccountService accountService, AccountEditor accountEditor, PlaceService placeService) {
