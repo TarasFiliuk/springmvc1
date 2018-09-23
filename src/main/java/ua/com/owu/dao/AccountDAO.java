@@ -4,7 +4,6 @@ package ua.com.owu.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ua.com.owu.models.Account;
-import ua.com.owu.models.Role;
 
 import java.util.List;
 

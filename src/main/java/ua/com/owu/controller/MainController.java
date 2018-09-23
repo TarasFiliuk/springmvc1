@@ -1,12 +1,9 @@
 package ua.com.owu.controller;
 
 
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +11,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.models.*;
-import ua.com.owu.service.AccountService.AccountService;
-import ua.com.owu.service.MailService;
+import ua.com.owu.service.accountService.AccountService;
+import ua.com.owu.service.mailService.MailService;
 
 import ua.com.owu.utils.AccountEditor;
 import ua.com.owu.utils.TokenUtils;
 import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,23 +27,31 @@ import java.util.stream.Stream;
 public class MainController {
 
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
 
-    @Autowired
-    private MailService mailService;
+    private final MailService mailService;
 
-    @Autowired
+    private final
     AccountService accountService;
 
-    @Autowired
+    private final
     AccountEditor accountEditor;
 
-    @Autowired
+    private final
     UserValidator userValidator;
 
-    @Autowired
+    private final
     TokenUtils tokenUtils;
+
+    @Autowired
+    public MainController(Environment environment, MailService mailService, AccountService accountService, AccountEditor accountEditor, UserValidator userValidator, TokenUtils tokenUtils) {
+        this.environment = environment;
+        this.mailService = mailService;
+        this.accountService = accountService;
+        this.accountEditor = accountEditor;
+        this.userValidator = userValidator;
+        this.tokenUtils = tokenUtils;
+    }
 //    @PostMapping("/login")
 //    public String login (Authentication authentication){
 //        boolean isUser = false;
@@ -111,8 +114,6 @@ public class MainController {
         return "index";
     }
 
-
-
     //temporary methods to  create  admin
     @GetMapping("/createAdmin")
     public String createAdmin() {
@@ -129,12 +130,12 @@ public class MainController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
-        model.addAttribute("adminName",name);
+        model.addAttribute("adminName", name);
 
 
         List<Account> manager = accountService.findByAccountType("manager");
         Stream<Account> stream = manager.stream();
-        List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
+        List<Account> collect = stream.filter(account -> !account.isAccountNonLocked()).collect(Collectors.toList());
         model.addAttribute("manager", collect);
         return "admin";
     }
@@ -143,7 +144,7 @@ public class MainController {
     String confirm(
             @PathVariable int id
     ) {
-        Account managerAccount = accountService.findbyId(id);
+        Account managerAccount = accountService.findById(id);
         managerAccount.setAccountNonLocked(true);
         accountService.save(managerAccount);
         return "redirect:/admin/page";
@@ -155,18 +156,17 @@ public class MainController {
     public String save(User user,
                        BindingResult bindingResult,
                        Model model
-    ) throws IOException {
-        String username = user.getUsername();
+    ){
         userValidator.validate(user, bindingResult);
         user.setToken(tokenUtils.generateToken());
         if (bindingResult.hasErrors()) {
-            String errorMessage = "";
+            StringBuilder errorMessage = new StringBuilder();
             List<ObjectError> allErrors = bindingResult.getAllErrors();
             for (ObjectError allError : allErrors) {
                 String code = allError.getCode();
-                errorMessage += " " + environment.getProperty(code);
+                errorMessage.append(" ").append(environment.getProperty(code));
             }
-            model.addAttribute("error", errorMessage);
+            model.addAttribute("error", errorMessage.toString());
             return "index";
         }
         try {
@@ -181,13 +181,13 @@ public class MainController {
 
 
     @GetMapping("/confirm/{token}")
-    public String accontConfirm(@PathVariable String token) {
+    public String accountConfirm(@PathVariable String token) {
         Account byToken = accountService.findByToken(token);
         if (byToken != null) {
             byToken.setToken(null);
             byToken.setEnabled(true);
             accountService.save(byToken);
-            System.out.println(byToken.getUsername() + " is approveed!");
+            System.out.println(byToken.getUsername() + " is approved!");
             return "login";
         } else {
             System.out.println("there is  no tokens  like  that!");
@@ -195,38 +195,20 @@ public class MainController {
         }
     }
 
-    //MANAGERCONTROLLER
-
-    @PostMapping("/save/manager")
-    public String manager(Account manager) {
-
-        Manager manager1=(Manager) manager;
-        accountEditor.setValue(manager1);
-        manager.setRole(Role.ROLE_MANAGER);
-        manager.setAccountNonLocked(false);
-        accountService.save(manager1);
-        return "redirect:/";
-
-    }
 
     @PostMapping("/save/admin")
-    public String manager(Admin admin) {
+    public String saveAdmin(Admin admin) {
         accountEditor.setValue(admin);
+        admin.setRole(Role.ROLE_ADMIN);
+        admin.setAccountNonLocked(true);
         accountService.save(admin);
         return "redirect:/";
     }
 
 
-
-
-
-
-
-
     @GetMapping("/places")
-    public String places()
-    {
-       return "places" ;
+    public String places() {
+        return "places";
     }
 
     //    @GetMapping("/create/manager_page")
@@ -235,5 +217,15 @@ public class MainController {
 //
 //        return "managerRegistration";
 //    }
+    @PostMapping("/admin/search")
+    public String searchCustom(Model model){
+    return null ;
+    }
+
+
+
 
 }
+
+//for maincontroller
+

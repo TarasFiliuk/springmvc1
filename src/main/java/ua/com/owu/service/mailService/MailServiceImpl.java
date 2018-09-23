@@ -1,21 +1,22 @@
-package ua.com.owu.service;
+package ua.com.owu.service.mailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.owu.models.Manager;
 import ua.com.owu.models.User;
-import ua.com.owu.utils.TokenUtils;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
 @Component
 public class MailServiceImpl implements MailService {
+    private final JavaMailSender mailSender;
+
     @Autowired
-    JavaMailSender mailSender;
+    public MailServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
 
     @Override

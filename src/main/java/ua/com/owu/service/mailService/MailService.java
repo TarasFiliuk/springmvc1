@@ -1,7 +1,6 @@
-package ua.com.owu.service;
+package ua.com.owu.service.mailService;
 
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.owu.models.Manager;
 import ua.com.owu.models.User;
 
 import javax.mail.MessagingException;

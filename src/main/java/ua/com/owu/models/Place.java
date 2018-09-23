@@ -2,6 +2,7 @@ package ua.com.owu.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Place {
@@ -9,17 +10,19 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int placeId;
     private String name;
-    private String adress;
+    private String address;
     private String city;
     private String specification;
+    private String about;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "place")
-    List<Manager> managers;
+    private List<Manager> managers;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "place")
-    List<UserTable> userTables;
+    private List<PlaceTable> placeTables;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "place")
-    List<Event> events;
+    private List<Event> events;
+
 
 
 
@@ -39,12 +42,12 @@ public class Place {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {
@@ -71,12 +74,12 @@ public class Place {
         this.managers = managers;
     }
 
-    public List<UserTable> getUserTables() {
-        return userTables;
+    public List<PlaceTable> getPlaceTables() {
+        return placeTables;
     }
 
-    public void setUserTables(List<UserTable> userTables) {
-        this.userTables = userTables;
+    public void setPlaceTables(List<PlaceTable> placeTables) {
+        this.placeTables = placeTables;
     }
 
     public List<Event> getEvents() {
@@ -87,12 +90,45 @@ public class Place {
         this.events = events;
     }
 
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public void addManager(Manager manager){
+        managers.add(manager);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return placeId == place.placeId &&
+                Objects.equals(name, place.name) &&
+                Objects.equals(address, place.address) &&
+                Objects.equals(city, place.city) &&
+                Objects.equals(specification, place.specification) &&
+                Objects.equals(about, place.about) &&
+                Objects.equals(managers, place.managers) &&
+                Objects.equals(placeTables, place.placeTables) &&
+                Objects.equals(events, place.events);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placeId, name, address, city, specification, about, managers, placeTables, events);
+    }
+
     @Override
     public String toString() {
         return "Place{" +
                 "placeId=" + placeId +
                 ", name='" + name + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", specification='" + specification + '\'' +
                 '}';

@@ -17,7 +17,7 @@ import java.util.Collection;
 public  class MySimpleUrlAuthenticationSuccessHandler
         implements AuthenticationSuccessHandler {
 
-    protected Log logger = LogFactory.getLog(this.getClass());///
+    private Log logger = LogFactory.getLog(this.getClass());///
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -30,8 +30,8 @@ public  class MySimpleUrlAuthenticationSuccessHandler
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(HttpServletRequest request,
-                          HttpServletResponse response, Authentication authentication)
+    private void handle(HttpServletRequest request,
+                        HttpServletResponse response, Authentication authentication)
             throws IOException {
 
         String targetUrl = determineTargetUrl(authentication);
@@ -46,30 +46,32 @@ public  class MySimpleUrlAuthenticationSuccessHandler
     }
 
 
-    protected String determineTargetUrl(Authentication authentication) {
+    private String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
         boolean isManager = false;
         boolean isAdmin=false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
+        label:
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                isUser = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_MANAGER")) {
-                isManager = true;
-                break;
-            }else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
-                isAdmin=true;
-                break;
+            switch (grantedAuthority.getAuthority()) {
+                case "ROLE_USER":
+                    isUser = true;
+                    break label;
+                case "ROLE_MANAGER":
+                    isManager = true;
+                    break label;
+                case "ROLE_ADMIN":
+                    isAdmin = true;
+                    break label;
             }
 
         }
 
         if (isUser) {
-            return "index";
+            return "/index";
         } else if (isManager) {
-            return "managerPage";
+            return "/manager-account";
         }else if (isAdmin) {
             return "/admin/page";
         }else {
@@ -77,7 +79,7 @@ public  class MySimpleUrlAuthenticationSuccessHandler
         }
     }
 
-    protected void clearAuthenticationAttributes(HttpServletRequest request) {
+    private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return;
