@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+
+<label>Перевірка унікальності username</label>
+<input type="text" name="username" id="username">
+<input type="button" name="go" id="ok" value="перевірка">
+<p id="lol">тут буде інфа</p>
+
+<script>
+    $('#ok').click( function () {
+        var login = $('#username').val();
+        $.post(
+            'тут має бути урла куди я відправляю данні!!!!!!',
+            {username: login}, //тут передаю змінну username, тобто ви постом приймаєте username і робите діла з ним
+            function (data) { //data це те що буде в результаті обробки за урлою
+                $('#lol').html(data);
+                console.log(data);
+            }
+        );
+    });
+</script>
+</body>
+</html>
