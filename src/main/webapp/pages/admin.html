@@ -116,6 +116,7 @@
                                 <input type="text" class="form-control" placeholder="Last name" id="last_name_serch">
                             </div>
                         </div>
+
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <div class="custom-control custom-checkbox mr-sm-2">
@@ -167,7 +168,7 @@
                             <th scope="col">Credentials Non expired</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="finded_users">
                         <tr>
                             <th scope="row">1</th>
                             <td id="show_role">роль</td>
@@ -432,12 +433,19 @@
         var email = $('#email_serch').val();
         var first_name = $('#first_name_serch').val();
         var last_name = $('#last_name_serch').val();
+        var acc_non_expired = $('#customControlAutosizing1').val();
+        var acc_non_locked = $('#customControlAutosizing2').val();
+        var credentials_non_expired = $('#customControlAutosizing3').val();
+        var enabled = $('#customControlAutosizing4').val();
         var lol = {};
-        if (role !== ''){
+        if (role !== '' && role !== 'Account type'){
             lol.role = role;
         }
-        if (login !== ''){
+        if (login !== '') {
             lol.login = login;
+        }
+        if (email !== ''){
+            lol.email = email;
         }
         if (first_name !== ''){
             lol.first_name = first_name;
@@ -445,15 +453,57 @@
         if (last_name !== ''){
             lol.last_name = last_name;
         }
+        if (acc_non_expired == 'on') {
+            lol.acc_non_expired = 'true';
+        }
+        if (acc_non_locked == 'on') {
+            lol.acc_non_locked = 'true';
+        }
+        if (credentials_non_expired == 'on') {
+            lol.credentials_non_expired = 'true';
+        }
+        if (enabled == 'on') {
+            lol.enabled = 'true';
+        }
         console.log(lol);
         // $.post(
-        //     '',
+        //     'тут має бути урла',
         //     lol,
         //     function (data) {
         //         console.log(data);
         //     }
         // );
     });
+    // <tbody id="finded_users">
+    //     <tr>
+    //     <th scope="row">1</th>
+    //     <td id="show_role">роль</td>
+    //     <td id="show_login">логін</td>
+    //     <td id="show_email">мило</td>
+    //     <td id="show_name">ім'я</td>
+    // <td id="show_last_name">прізвище</td>
+    //     <td>
+    //     <div class="form-check">
+    //     <input class="form-check-input position-static" type="checkbox" disabled>
+    // </div>
+    // </td>
+    // <td>
+    // <div class="form-check">
+    //     <input class="form-check-input position-static" type="checkbox" disabled>
+    // </div>
+    // </td>
+    // <td>
+    // <div class="form-check">
+    //     <input class="form-check-input position-static" type="checkbox" disabled>
+    // </div>
+    // </td>
+    // <td>
+    // <div class="form-check">
+    //     <input class="form-check-input position-static" type="checkbox" disabled>
+    // </div>
+    // </td>
+    // </tr>
+    // </tbody>
 </script>
 </body>
 </html>
