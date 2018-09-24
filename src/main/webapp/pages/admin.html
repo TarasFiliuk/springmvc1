@@ -433,10 +433,10 @@
         var email = $('#email_serch').val();
         var first_name = $('#first_name_serch').val();
         var last_name = $('#last_name_serch').val();
-        var acc_non_expired = $('#customControlAutosizing1').val();
-        var acc_non_locked = $('#customControlAutosizing2').val();
-        var credentials_non_expired = $('#customControlAutosizing3').val();
-        var enabled = $('#customControlAutosizing4').val();
+        var acc_non_expired = $('#customControlAutosizing1');
+        var acc_non_locked = $('#customControlAutosizing2');
+        var credentials_non_expired = $('#customControlAutosizing3');
+        var enabled = $('#customControlAutosizing4');
         var lol = {};
         if (role !== '' && role !== 'Account type'){
             lol.role = role;
@@ -453,16 +453,16 @@
         if (last_name !== ''){
             lol.last_name = last_name;
         }
-        if (acc_non_expired == 'on') {
+        if (acc_non_expired.is(":checked")) {
             lol.acc_non_expired = 'true';
         }
-        if (acc_non_locked == 'on') {
+        if (acc_non_locked.is(":checked")) {
             lol.acc_non_locked = 'true';
         }
-        if (credentials_non_expired == 'on') {
+        if (credentials_non_expired.is(":checked")) {
             lol.credentials_non_expired = 'true';
         }
-        if (enabled == 'on') {
+        if (enabled.is(":checked")) {
             lol.enabled = 'true';
         }
         console.log(lol);
