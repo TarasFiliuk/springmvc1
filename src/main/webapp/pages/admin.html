@@ -88,16 +88,6 @@
                                 <td><a class="btn btn-success" th:href="'/admin/active/manager/id/' + ${m.id}">Confirm</a></td>
                             </tr>
                         </th:block>
-                        <!--<tr>-->
-                            <!--<th scope="row">1</th>-->
-                            <!--<td>Manager</td>-->
-                            <!--<td>man123</td>-->
-                            <!--<td>@mdo</td>-->
-                            <!--<td>John</td>-->
-                            <!--<td>Smith</td>-->
-                            <!--<td>La piezz</td>-->
-                            <!--<td><a class="btn btn-success" href="">Confirm</a></td>-->
-                        <!--</tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -114,16 +104,16 @@
                                 </select>
                             </div>
                             <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input type="text" class="form-control" placeholder="Username" id="username_serch">
                             </div>
                             <div class="col-auto my-1">
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input type="email" class="form-control" placeholder="Email" id="email_serch">
                             </div>
                             <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="First name">
+                                <input type="text" class="form-control" placeholder="First name" id="first_name_serch">
                             </div>
                             <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="Last name">
+                                <input type="text" class="form-control" placeholder="Last name" id="last_name_serch">
                             </div>
                         </div>
                         <div class="form-row align-items-center">
@@ -157,7 +147,7 @@
                         </div>
 
                         <div class="my-1">
-                            <button type="submit" class="btn btn-success">Search</button>
+                            <button type="button" class="btn btn-success" id="find_users">Search</button>
                         </div>
 
                     </form>
@@ -180,11 +170,11 @@
                         <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Manager</td>
-                            <td>man123</td>
-                            <td>@mdo</td>
-                            <td>John</td>
-                            <td>Smith</td>
+                            <td id="show_role">роль</td>
+                            <td id="show_login">логін</td>
+                            <td id="show_email">мило</td>
+                            <td id="show_name">ім'я</td>
+                            <td id="show_last_name">прізвище</td>
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input position-static" type="checkbox" disabled>
@@ -427,5 +417,43 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<script>
+    //id-шки в які треба всунути дату
+    // <td id="show_role"></td>
+    //     <td id="show_login"></td>
+    //     <td id="show_email"></td>
+    //     <td id="show_name"></td>
+    //     <td id="show_last_name"></td>
+
+
+    $('#find_users').click( function () {
+        var role = $('#inlineFormCustomSelect').val();
+        var login = $('#username_serch').val();
+        var email = $('#email_serch').val();
+        var first_name = $('#first_name_serch').val();
+        var last_name = $('#last_name_serch').val();
+        var lol = {};
+        if (role !== ''){
+            lol.role = role;
+        }
+        if (login !== ''){
+            lol.login = login;
+        }
+        if (first_name !== ''){
+            lol.first_name = first_name;
+        }
+        if (last_name !== ''){
+            lol.last_name = last_name;
+        }
+        console.log(lol);
+        // $.post(
+        //     '',
+        //     {role: role, username: login, email: email, first_name: first_name, last_name: last_name},
+        //     function (data) {
+        //         console.log(data);
+        //     }
+        // );
+    });
+</script>
 </body>
 </html>
