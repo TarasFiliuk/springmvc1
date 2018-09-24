@@ -22,8 +22,6 @@ public class AccountEditor extends PropertyEditorSupport {
     @Override
     public void setValue(Object value) {
         Account account = (Account) value;
-        String password = account.getPassword();
-        String encode = passwordEncoder.encode(password);
-        account.setPassword(encode);
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
     }
 }
