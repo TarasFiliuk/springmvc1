@@ -124,6 +124,50 @@ public class MainController {
     }
 
 
+//    //AdminController
+//    @GetMapping("/admin/page")
+//    String adminPage(Model model) {
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String name = auth.getName(); //get logged in username
+//        model.addAttribute("adminName", name);
+//
+//
+//        List<Account> manager = accountService.findByAccountType("manager");
+//        Stream<Account> stream = manager.stream();
+//        List<Account> collect = stream.filter(account -> account.isAccountNonLocked() == false).collect(Collectors.toList());
+//        model.addAttribute("manager", collect);
+//        return "admin";
+//    }
+
+    @GetMapping("/userList")
+    public String userList(Model model) {
+        List<Account> all = accountService.findAll();
+        model.addAttribute("accounts", all);
+        return "userList";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateSave(@PathVariable int id,
+                             @RequestParam(value = "username", required = false) String username,
+                             @RequestParam(value = "email", required = false) String email) {
+        Account account = accountService.findById(id);
+        account.setUsername(username);
+        account.setEmail(email);
+        accountService.save(account);
+        return "redirect:/userList";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateUser(
+            @PathVariable int id,
+            Model model) {
+        Account account = accountService.findById(id);
+        model.addAttribute("account", account);
+        System.out.println(account);
+        return "UpdateUser";
+    }
+
 
     //USERcONTROLLER
 
@@ -131,7 +175,7 @@ public class MainController {
     public String save(User user,
                        BindingResult bindingResult,
                        Model model
-    ){
+    ) {
         userValidator.validate(user, bindingResult);
         user.setToken(tokenUtils.generateToken());
         if (bindingResult.hasErrors()) {
@@ -193,11 +237,9 @@ public class MainController {
 //        return "managerRegistration";
 //    }
     @PostMapping("/admin/search")
-    public String searchCustom(Model model){
-    return null ;
+    public String searchCustom(Model model) {
+        return null;
     }
-
-
 
 
 }

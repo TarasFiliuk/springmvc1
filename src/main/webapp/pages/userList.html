@@ -6,14 +6,23 @@
 </head>
 <body>
 <h1>USERS</h1>
-
-<ul th:each="user : ${users}">
-    <li th:text=" ${user.getUsername()}"></li>
+<form action="/userList" method="post">
+<ul th:each="account : ${accounts}">
+    <h3>Account USERNAME-
+        <tr th:text=" ${account.getUsername()}"></tr>
+    </h3>
+    <h3>Account ID -
+    <th scope="row" th:text="${account.id}"></th>
+    </h3>
+    <h3>Account EMAIL -
+    <li th:text=" ${account.getEmail()}"></li>
+    </h3>
+    <a th:href="'/update/' + ${account.id}">update</a>
 </ul>
 
 <a th:href="@{/signup}">Sign Up</a>
 <a th:href="@{/signin}">Sign In</a>
-
+</form>
 
 </body>
 </html>

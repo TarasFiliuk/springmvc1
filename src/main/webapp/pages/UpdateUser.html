@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{'/update/'+ ${account.id}}" method="post">
+    <tr>
+        <h3>Account id -  <th scope="row" th:text="${account.id}"></th></h3>
+        <h3>Account UserName - <td th:text="${account.username}"></td></h3>
+        <h3>Account Email - <td th:text="${account.email}"></td></h3>
+    </tr>
+    <!--<input type="submit" value="Update">-->
+    <input type="text" name="username" th:value="${account.username}" th:placeholder="${account.username}" >
+    <input type="text"  name="email" th:value="${account.email}" th:placeholder="${account.email}">
+    <input type="submit" value="Update">
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+</form>
+</body>
+</html>

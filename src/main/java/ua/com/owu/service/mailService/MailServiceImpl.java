@@ -20,13 +20,13 @@ public class MailServiceImpl implements MailService {
 
 
     @Override
-    public void sendSimpleMessage(String email, String subject, String text) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText(text);
-        messageHelper.setSubject(subject);
-        messageHelper.setTo(email);
-        mailSender.send(message);
+        public void sendSimpleMessage(String email, String subject, String text) throws MessagingException {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+            messageHelper.setText(text);
+            messageHelper.setSubject(subject);
+            messageHelper.setTo(email);
+            mailSender.send(message);
     }
 
     @Override
