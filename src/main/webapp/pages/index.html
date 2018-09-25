@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 <body>
 
 <div>
 <form th:action="@{/save}" method="post">
-    <input type="text" name="username" placeholder="name" style="margin-top: 5px"><br>
+    <input id="username" class="change" type="text" name="username" placeholder="name" style="margin-top: 5px"><span id="message1" style="color: red"></span><br>
     <!--<input type="text" name="firstName" placeholder="firstname" style="margin-top: 5px">-->
     <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
-    <input type="email" name="email" placeholder="email" style="margin-top: 5px"><br>
-    <input type="password" name="password" placeholder="pass" style="margin-top: 5px"><br>
-    <input type="submit" name="" placeholder="" style="margin-top: 5px">
+    <input id="email" class="change" type="email" name="email" placeholder="email" style="margin-top: 5px"><span id="message2" style="color: red"></span><br>
+    <input id="pas1" class="change" type="password" name="password" placeholder="pass" style="margin-top: 5px"><span id="message4" style="color: red"></span><br>
+    <input id="pas2" class="change" type="password" name="password2" placeholder="check pass" style="margin-top: 5px"><span id="message3" style="color: red"></span><br>
+    <input id="submit_button" type="button" name="" value="Перевірка" style="margin-top: 5px" onclick="check()">
 
     <input type="hidden"
            name="${_csrf.parameterName}"
@@ -69,6 +71,7 @@
         <input type="hidden"
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>
+    </form>
 </div>
 <div th:unless="${#strings.isEmpty(username)}">
 <h3> Person name - <em th:text=" ${username}"></em></h3>
@@ -83,6 +86,38 @@
     </form>
 </div>
 
+<script>
+    $('.change').keyup(function () {
+        if($('#pas1').val() == $('#pas2').val() && $('#username') !== '' && $('#email') !== '' && $('#pas1').val() !== ''){
+            $('#submit_button').attr('type','submit');
+            $('#submit_button').attr('value','Зареєструватись');
+        }
+        if($('#username').val() !== ''){
+            $('#message1').html("");
+        }
+        if($('#email').val() !== ''){
+            $('#message2').html("");
+        }
+        if($('#pas1').val() !== ''){
+            $('#message4').html("");
+        }
+        console.log($('#pas1').val(), $('#pas2').val())
+    });
+    function check() {
+        if($('#pas1').val() !== $('#pas2').val()){
+            $('#message3').html('паролі не співпадають')
+        }
+        if($('#username').val() == ''){
+            $('#message1').html("введіть ім'я");
+        }
+        if($('#email').val() == ''){
+            $('#message2').html("введіть email");
+        }
+        if($('#pas1').val() == ''){
+            $('#message4').html("введіть пароль");
+        }
+    }
+</script>
 
 </body>
 </html>
