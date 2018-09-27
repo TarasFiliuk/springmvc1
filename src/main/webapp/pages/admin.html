@@ -75,7 +75,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Place</th>
+                            <!--<th scope="col">Place</th>-->
                             <!--<th scope="col">Active</th>-->
                             <th scope="col">#</th>
                         </tr>
@@ -108,22 +108,22 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="search-pills" role="tabpanel" aria-labelledby="search-pills-tab">
-                    <form>
+                    <form th:action="@{/adse}" method="post">
                         <div class="form-row align-items-center">
+                            <!--<div class="col-auto my-1">-->
+                                <!--<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>-->
+                                <!--<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">-->
+                                    <!--<option selected>Account type</option>-->
+                                    <!--<option value="manager">Manager</option>-->
+                                    <!--<option value="user">User</option>-->
+                                    <!--<option value="admin">Admin</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
                             <div class="col-auto my-1">
-                                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                    <option selected>Account type</option>
-                                    <option value="manager">Manager</option>
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
+                                <input type="text" class="form-control" placeholder="Username" name="username">
                             </div>
                             <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="Username">
-                            </div>
-                            <div class="col-auto my-1">
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
 <!--
                             <div class="col-auto my-1">
@@ -170,6 +170,7 @@
 
                     </form>
 
+
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -179,40 +180,43 @@
                             <th scope="col">Email</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Non Expired</th>
-                            <th scope="col">Enabled</th>
-                            <th scope="col">Non Locked</th>
-                            <th scope="col">Credentials Non expired</th>
+                            <th scope="col">NonExp</th>
+                            <th scope="col">Ena</th>
+                            <th scope="col">NonLoc</th>
+                            <th scope="col">CredNonExp</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <th:block th:each="ac:${accounts}">
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Manager</td>
-                            <td>man123</td>
-                            <td>@mdo</td>
-                            <td>John</td>
-                            <td>Smith</td>
+                            <th scope="row" th:text=""></th>
+                            <th scope="row" th:text="${ac.id}"></th>
+                            <td th:text="${ac.accountType}"></td>
+                            <td th:text="${ac.username}"></td>
+                            <td th:text="${ac.email}"></td>
+                            <td th:text="${ac.firstName}"></td>
+                            <td th:text="${ac.lastName}"></td>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
+                                    <input class="form-check-input position-static" th:checked="${ac.accountNonExpired}"  disabled>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
+                                    <input class="form-check-input position-static" th:checked="${ac.accountNonLocked}" disabled>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
+                                    <input class="form-check-input position-static" th:checked="${credentialsNonEcpired}" disabled>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
+                                    <input class="form-check-input position-static" th:checked="${ac.enabled}" disabled>
                                 </div>
                             </td>
+                            <td ><a th:href=@{'/update/'+${ac.id}}>Update</a></td>
                         </tr>
                         </tbody>
                     </table>
