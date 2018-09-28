@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.com.owu.models.*;
 import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.service.mailService.MailService;
@@ -19,6 +20,9 @@ import ua.com.owu.utils.TokenUtils;
 import ua.com.owu.utils.UserValidator;
 
 import javax.mail.MessagingException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -96,7 +100,24 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String home(Model model) {
+        String path = System.getProperty("user.home")
+                + File.separator
+                + "IdeaProjects"
+                + File.separator
+                + "springmvc1"
+                + File.separator
+                + "pic"
+                + File.separator;
+
+        File file = new File(path);
+        File[] files= file.listFiles();
+        List<String> strings = new ArrayList<>();
+        for (File file1 : files) {
+            strings.add("/pic/"+file1.getName());
+        }
+
+        model.addAttribute("images",strings);
         return "index";
     }
 
@@ -124,6 +145,28 @@ public class MainController {
     }
 
 
+    @PostMapping("/upload")
+    String upload(@RequestParam MultipartFile file) {
+
+        String path = System.getProperty("user.home")
+                + File.separator
+                + "IdeaProjects"
+                + File.separator
+                + "springmvc1"
+                + File.separator
+                + "pic"
+                + File.separator;
+        System.out.println(path);
+
+        try {
+            file.transferTo(new File(path + file.getOriginalFilename()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/";
+    }
+
 
     //USERcONTROLLER
 
@@ -131,7 +174,7 @@ public class MainController {
     public String save(User user,
                        BindingResult bindingResult,
                        Model model
-    ){
+    ) {
         userValidator.validate(user, bindingResult);
         user.setToken(tokenUtils.generateToken());
         if (bindingResult.hasErrors()) {
@@ -186,21 +229,11 @@ public class MainController {
         return "places";
     }
 
-    //    @GetMapping("/create/manager_page")
-//    public String managerRegistration() {
-//
-//
-//        return "managerRegistration";
-//    }
     @PostMapping("/admin/search")
-    public String searchCustom(Model model){
-    return null ;
+    public String searchCustom(Model model) {
+        return null;
     }
 
 
-
-
 }
-
-//for maincontroller
 

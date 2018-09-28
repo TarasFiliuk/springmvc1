@@ -79,7 +79,7 @@ public class PlaceServiceImp implements PlaceService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public Place findByManagerId(int id) {
         Manager manager = (Manager) accountDAO.findOne(id);
         Hibernate.initialize(manager.getPlace());
