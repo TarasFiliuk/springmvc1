@@ -1,5 +1,6 @@
 package ua.com.owu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,60 +27,62 @@ public class AdminController {
 	private final
 	AccountEditor accountEditor;
 
-	public AdminController(AccountService accountService, AccountEditor accountEditor) {
-		this.accountService = accountService;
-		this.accountEditor = accountEditor;
-	}
+
+    @Autowired
+    public AdminController(AccountService accountService, AccountEditor accountEditor) {
+        this.accountService = accountService;
+        this.accountEditor = accountEditor;
+    }
 
 
-	@GetMapping("/admin/active/manager/id/{id}")
-	String confirm(
-			@PathVariable int id
-	) {
-		Account managerAccount = accountService.findById(id);
-		managerAccount.setAccountNonLocked(true);
-		accountService.save(managerAccount);
-		return "redirect:/admin/page";
-	}
+    @GetMapping("/admin/active/manager/id/{id}")
+    String confirm(
+            @PathVariable int id
+    ) {
+        Account managerAccount = accountService.findById(id);
+        managerAccount.setAccountNonLocked(true);
+        accountService.save(managerAccount);
+        return "redirect:/admin/page";
+    }
 
-	@GetMapping("/admin/page")
-	String adminPage(Model model) {
+    @GetMapping("/admin/page")
+    String adminPage(Model model) {
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName(); //get logged in username
-		model.addAttribute("adminName", name);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        model.addAttribute("adminName", name);
 
-		List<Account> manager = accountService.findByAccountType("manager");
-		Stream<Account> stream = manager.stream();
-		List<Account> collect = stream.filter(account -> !account.isAccountNonLocked()).collect(Collectors.toList());
-		model.addAttribute("manager", collect);
-		return "admin";
-	}
+        List<Account> manager = accountService.findByAccountType("manager");
+        Stream<Account> stream = manager.stream();
+        List<Account> collect = stream.filter(account -> !account.isAccountNonLocked()).collect(Collectors.toList());
+        model.addAttribute("manager", collect);
+        return "admin";
+    }
 
 
-	@PostMapping("/admin/saveUser")
-	String adminSaveUser(User user) {
-		accountEditor.setValue(user);
-		accountService.save(user);
-		return "redirect:/admin/page";
+    @PostMapping("/admin/saveUser")
+    String adminSaveUser(User user){
+        accountEditor.setValue(user);
+        accountService.save(user);
+        return "redirect:/admin/page";
 
-	}
+    }
 
-	@PostMapping("/admin/saveManager")
-	String adminSaveUser(Manager manager) {
-		accountEditor.setValue(manager);
-		accountService.save(manager);
-		return "redirect:/admin/page";
+    @PostMapping("/admin/saveManager")
+    String adminSaveUser(Manager manager){
+        accountEditor.setValue(manager);
+        accountService.save(manager);
+        return "redirect:/admin/page";
 
-	}
+    }
 
-	@PostMapping("/admin/saveAdmin")
-	String adminSaveUser(Admin admin) {
-		accountEditor.setValue(admin);
-		accountService.save(admin);
-		return "redirect:/admin/page";
+    @PostMapping("/admin/saveAdmin")
+    String adminSaveUser(Admin admin){
+        accountEditor.setValue(admin);
+        accountService.save(admin);
+        return "redirect:/admin/page";
 
-	}
+    }
 
 	@PostMapping("/admin/search/account")
 	public String adminSearch(Model model,
