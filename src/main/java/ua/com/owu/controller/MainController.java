@@ -146,7 +146,7 @@ public class MainController {
 
 
     @PostMapping("/upload")
-    String upload(@RequestParam MultipartFile file) {
+    String upload(@RequestParam MultipartFile file) throws IOException {
 
         String path = System.getProperty("user.home")
                 + File.separator
@@ -156,10 +156,10 @@ public class MainController {
                 + File.separator
                 + "pic"
                 + File.separator;
-        System.out.println(path);
 
+        File file1 = new File(path + file.getOriginalFilename());
         try {
-            file.transferTo(new File(path + file.getOriginalFilename()));
+            file.transferTo(file1);
         } catch (IOException e) {
             e.printStackTrace();
         }
