@@ -12,6 +12,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import java.io.File;
 import java.util.Properties;
 
 @Configuration
@@ -42,7 +43,16 @@ public class WebConfig extends WebMvcConfigurerAdapter  {
         registry
 
                 .addResourceHandler("/pic/**")
-                .addResourceLocations("file:C:\\Users\\nazaa\\IdeaProjects\\springmvc1\\pic\\");
+                .addResourceLocations("file:" + System.getProperty("user.home")
+                        + File.separator
+                        + "IdeaProjects"
+                        + File.separator
+                        + "springmvc1"
+                        + File.separator
+                        + "pic"
+                        + File.separator
+
+                );
     }
 
     @Bean
