@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.owu.models.Account;
-import ua.com.owu.models.Admin;
-import ua.com.owu.models.Manager;
-import ua.com.owu.models.User;
+import ua.com.owu.models.*;
 import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.utils.AccountEditor;
 
@@ -84,19 +81,15 @@ public class AdminController {
 
 	}
 
-	@GetMapping("/adse")
-	public String adse() {
-		return "adse";
-	}
-
-	@PostMapping("/adse")
+	@PostMapping("/admin/search/account")
 	public String adminSearch(Model model,
 							  @RequestParam String username,
-							  @RequestParam String email
+							  @RequestParam String email,
+							  @RequestParam String role
 	) {
 		Stream<Account> accountStream = accountService.findAll().stream();
 		List<Account> accountList = new ArrayList<>();
-		if (username == "" & email == "") {
+		if (username == "" & email == "" & role == "") {
 			accountList = accountStream.collect(Collectors.toList());
 		} else {
 			if (username != "") {
@@ -105,11 +98,25 @@ public class AdminController {
 			if (email != "") {
 				accountStream = accountStream.filter(account -> account.getEmail().equals(email));
 			}
+			if (role != "") {
+				Role myrole = null;
+				switch (role) {
+					case "ROLE_ADMIN":
+						myrole = Role.ROLE_ADMIN;
+						break;
+					case "ROLE_MANAGER":
+						myrole = Role.ROLE_MANAGER;
+						break;
+					case "ROLE_USER":
+						myrole = Role.ROLE_USER;
+						break;
+				}
+				Role finalMyrole = myrole;
+				accountStream = accountStream.filter(account -> account.getRole().equals(finalMyrole));
+			}
 			accountList = accountStream.collect(Collectors.toList());
 		}
 		model.addAttribute("accounts", accountList);
 		return "admin";
 	}
-
-
 }
