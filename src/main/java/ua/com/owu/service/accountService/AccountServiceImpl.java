@@ -3,7 +3,6 @@ package ua.com.owu.service.accountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.AccountDAO;
@@ -58,6 +57,7 @@ public class AccountServiceImpl implements AccountService {
         } else
             return accountDAO.findByUsername(param);
     }
+
 
     @Override
 
