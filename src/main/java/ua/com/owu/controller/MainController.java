@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ import ua.com.owu.service.mailService.MailService;
 
 import ua.com.owu.utils.AccountEditor;
 import ua.com.owu.utils.TokenUtils;
-import ua.com.owu.utils.UserValidator;
+import ua.com.owu.utils.AccountValidator;
 
 import javax.mail.MessagingException;
 import java.io.File;
@@ -42,19 +43,21 @@ public class MainController {
     AccountEditor accountEditor;
 
     private final
-    UserValidator userValidator;
+    AccountValidator accountValidator;
 
     private final
     TokenUtils tokenUtils;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MainController(Environment environment, MailService mailService, AccountService accountService, AccountEditor accountEditor, UserValidator userValidator, TokenUtils tokenUtils) {
+    public MainController(Environment environment, MailService mailService, AccountService accountService, AccountEditor accountEditor, AccountValidator accountValidator, TokenUtils tokenUtils, PasswordEncoder passwordEncoder) {
         this.environment = environment;
         this.mailService = mailService;
         this.accountService = accountService;
         this.accountEditor = accountEditor;
-        this.userValidator = userValidator;
+        this.accountValidator = accountValidator;
         this.tokenUtils = tokenUtils;
+        this.passwordEncoder = passwordEncoder;
     }
 //    @PostMapping("/login")
 //    public String login (Authentication authentication){
@@ -174,8 +177,8 @@ public class MainController {
     public String save(User user,
                        BindingResult bindingResult,
                        Model model
-    ) {
-        userValidator.validate(user, bindingResult);
+    ){
+        accountValidator.validate(user, bindingResult);
         user.setToken(tokenUtils.generateToken());
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
@@ -207,6 +210,19 @@ public class MainController {
             accountService.save(byToken);
             System.out.println(byToken.getUsername() + " is approved!");
             return "login";
+        } else {
+            System.out.println("there is  no tokens  like  that!");
+            return "index";
+        }
+    }
+ @GetMapping("/confirm/{email}/{token}")
+    public String emailConfirm(@PathVariable String token, @PathVariable String email) {
+        Account byToken = accountService.findByToken(token);
+         System.out.println(byToken);
+        if (byToken != null) {
+            byToken.setToken(null);
+            accountService.updateEmail(byToken.getId(), email);
+            return "redirect:/";
         } else {
             System.out.println("there is  no tokens  like  that!");
             return "index";

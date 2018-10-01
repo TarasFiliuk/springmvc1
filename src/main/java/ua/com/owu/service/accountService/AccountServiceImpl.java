@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.owu.dao.AccountDAO;
 import ua.com.owu.models.Account;
+import ua.com.owu.utils.AccountEditor;
 
 import java.util.List;
 
@@ -16,9 +17,12 @@ public class AccountServiceImpl implements AccountService {
     private final
     AccountDAO accountDAO;
 
+    private final AccountEditor accountEditor;
+
     @Autowired
-    public AccountServiceImpl(AccountDAO accountDAO) {
+    public AccountServiceImpl(AccountDAO accountDAO, AccountEditor accountEditor) {
         this.accountDAO = accountDAO;
+        this.accountEditor = accountEditor;
     }
 
     @Override
@@ -80,7 +84,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void update(int id, Account account) {
+    @Transactional
+    public void updateNames(int id, Account account) {
         Account one = accountDAO.findOne(id);
+        System.out.println(one);
+        one.setFirstName(account.getFirstName());
+        one.setLastName(account.getLastName());
+        System.out.println(one);
+        accountDAO.save(one);
     }
+
+
+    @Override
+    @Transactional
+    public void updateEmail(int id, String email) {
+        Account one = accountDAO.findOne(id);
+        one.setEmail(email);
+        accountDAO.save(one);
+    }
+
 }

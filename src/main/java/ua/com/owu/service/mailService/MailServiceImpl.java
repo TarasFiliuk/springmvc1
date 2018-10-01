@@ -5,6 +5,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import ua.com.owu.models.Account;
 import ua.com.owu.models.User;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,18 +31,28 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendConfirmMessage(String email, User user) throws MessagingException {
+    public void sendConfirmMessage(String email, Account account) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr>" +
-                "<a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/confirm/"+user.getToken() +"\">"+
+        messageHelper.setText("<h2>Nice to meet you "+ account.getFirstName()+"!</h2><hr>" +
+                "<a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/confirm/"+account.getToken() +"\">"+
+                "Please confirm your account!</a>", true);
+        messageHelper.setSubject("Confirm your account!");
+        messageHelper.setTo(email);
+        mailSender.send(message);
+    }
+
+    @Override
+    public void sendEmailConfirmMessage(String email, Account account) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+        messageHelper.setText("<h2>Nice to meet you "+ account.getFirstName()+"!</h2><hr>" +
+                "<a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/confirm/"+ email + "/" +account.getToken() +"\">"+
                 "Please confirm your email!</a>", true);
         messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
-//        mailSender.send(message);
-        System.out.println("MAIL SENDED!!!");
+        mailSender.send(message);
     }
-
 
 
     @Override

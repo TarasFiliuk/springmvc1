@@ -13,6 +13,7 @@ public interface AccountService  extends UserDetailsService{
     Account findByToken (String token);
     Account findByUsername(String username);
     void deleteById(int id);
-    void update(int id, Account account);
+    void updateNames(int id, Account account);
+    void updateEmail(int id, String email);
 
 }
