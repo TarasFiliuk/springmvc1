@@ -443,29 +443,46 @@
         }
         if (login !== '') {
             lol.login = login;
+        } else {
+            lol.login = 'null';
         }
         if (email !== ''){
             lol.email = email;
+        } else {
+            lol.email = 'null';
         }
         if (first_name !== ''){
             lol.first_name = first_name;
+        } else {
+            lol.first_name = 'null';
         }
         if (last_name !== ''){
             lol.last_name = last_name;
+        } else {
+            lol.last_name = 'null';
         }
         if (acc_non_expired.is(":checked")) {
             lol.acc_non_expired = 'true';
+        } else {
+            lol.acc_non_expired = 'null'
         }
         if (acc_non_locked.is(":checked")) {
             lol.acc_non_locked = 'true';
+        } else {
+            lol.acc_non_locked = 'null'
         }
         if (credentials_non_expired.is(":checked")) {
             lol.credentials_non_expired = 'true';
+        } else {
+            lol.credentials_non_expired = 'null'
         }
         if (enabled.is(":checked")) {
             lol.enabled = 'true';
+        } else {
+            lol.enabled = 'null'
         }
-        console.log(lol);
+        var myJSON = JSON.stringify(lol);
+        console.log(myJSON);
         // $.post(
         //     'тут має бути урла',
         //     lol,
@@ -474,6 +491,9 @@
         //     }
         // );
     });
+
+
+
     // <tbody id="finded_users">
     //     <tr>
     //     <th scope="row">1</th>
