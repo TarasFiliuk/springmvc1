@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">WookieBookiee</a>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Places</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Events</a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container p-5">
+    <h1 class="text-center py-5">Sign Up</h1>
+    <form>
+        <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" name="login" class="form-control change" id="username" placeholder="Enter your first name"><br>
+                <span id="message1" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control change" name="email" id="email" placeholder="Email"><br>
+                <span id="message2" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pas1" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" name="password" class="form-control change" id="pas1" placeholder="Password"><br>
+                <span id="message4" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="pas2" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" name="password" class="form-control change" id="pas2" placeholder="Submit your password"><br>
+                <span id="message3" style="color: red"></span>
+            </div>
+        </div>
+
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Sign up as</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="accountType" id="user" value="user" checked>
+                        <label class="form-check-label" for="user">
+                            User
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="accountType" id="manager" value="manager">
+                        <label class="form-check-label" for="manager">
+                            Manager
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button id="submit_button" type="button" name="" onclick="check()" class="btn btn-success px-4 py-2 my-3">Перевірка</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $('.change').keyup(function () {
+        if($('#pas1').val() == $('#pas2').val() && $('#username').val() !== 'в' && $('#email').val() !== '' && $('#pas1').val() !== ''){
+            $('#submit_button').attr('type','submit');
+            $('#submit_button').attr('html','Sign in');
+        }
+        if($('#username').val() !== ''){
+            var lol = {};
+            lol.username = $('#username').val();
+            var myJSON = JSON.stringify(lol);
+            console.log(myJSON);
+            $.post(
+                'тут має бути урла',
+                myJSON,
+                function (data) {
+                    console.log(data);
+                    $('#message1').html("");
+                    if(data.username == 'null'){
+                        $('#message1').html("це ім'я вже зайняте");
+                    }
+                }
+            );
+        }
+        if($('#email').val() !== ''){
+            $('#message2').html("");
+        }
+        if($('#pas1').val() !== ''){
+            $('#message4').html("");
+        }
+        console.log($('#pas1').val(), $('#pas2').val())
+    });
+    function check() {
+        if($('#pas1').val() !== $('#pas2').val()){
+            $('#message3').html('паролі не співпадають')
+        }
+        if($('#username').val() == ''){
+            $('#message1').html("введіть ім'я");
+        }
+        if($('#email').val() == ''){
+            $('#message2').html("введіть email");
+        }
+        if($('#pas1').val() == ''){
+            $('#message4').html("введіть пароль");
+        }
+    }
+</script>
+</body>
+</html>

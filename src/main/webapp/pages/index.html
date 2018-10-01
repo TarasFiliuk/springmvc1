@@ -6,14 +6,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 <body>
-
 <div>
 <form th:action="@{/save}" method="post">
     <input id="username" class="change" type="text" name="username" placeholder="name" style="margin-top: 5px"><span id="message1" style="color: red"></span><br>
     <!--<input type="text" name="firstName" placeholder="firstname" style="margin-top: 5px">-->
     <!--<input type="text" name="lastName" placeholder="lastname" style="margin-top: 5px">-->
     <input id="email" class="change" type="email" name="email" placeholder="email" style="margin-top: 5px"><span id="message2" style="color: red"></span><br>
-    <input id="pas1" class="change" type="password" name="password" placeholder="pass" style="margin-top: 5px"><span id="message4" style="color: red"></span><br>
+    <input id="pas1" class="change" type="password" name="password" placeholder="pass" style="margin-top: 5px"><span id="message2" style="color: red"></span><br>
     <input id="pas2" class="change" type="password" name="password2" placeholder="check pass" style="margin-top: 5px"><span id="message3" style="color: red"></span><br>
     <input id="submit_button" type="button" name="" value="Перевірка" style="margin-top: 5px" onclick="check()">
 
