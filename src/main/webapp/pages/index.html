@@ -88,7 +88,7 @@
 
 <script>
     $('.change').keyup(function () {
-        if($('#pas1').val() == $('#pas2').val() && $('#username') !== '' && $('#email') !== '' && $('#pas1').val() !== ''){
+        if($('#pas1').val() == $('#pas2').val() && $('#username').val() !== 'в' && $('#email').val() !== '' && $('#pas1').val() !== ''){
             $('#submit_button').attr('type','submit');
             $('#submit_button').attr('value','Зареєструватись');
         }
