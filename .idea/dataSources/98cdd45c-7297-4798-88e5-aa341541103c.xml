@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost [2]">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
     <root id="1">
-      <ServerVersion>5.7.23</ServerVersion>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
-    <schema id="2" parent="1" name="information_schema">
+    <schema id="2" parent="1" name="demo">
       <Current>1</Current>
-      <Collation>utf8_general_ci</Collation>
+      <Collation>latin1_swedish_ci</Collation>
     </schema>
-    <schema id="3" parent="1" name="librarydb">
+    <schema id="3" parent="1" name="information_schema">
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="4" parent="1" name="mysql">
@@ -20,17 +17,16 @@
     <schema id="5" parent="1" name="performance_schema">
       <Collation>utf8_general_ci</Collation>
     </schema>
-    <schema id="6" parent="1" name="projectdatabase">
-      <Visible>1</Visible>
+    <schema id="6" parent="1" name="sakila">
       <Collation>latin1_swedish_ci</Collation>
     </schema>
-    <schema id="7" parent="1" name="projectdb">
-      <Collation>latin1_swedish_ci</Collation>
-    </schema>
-    <schema id="8" parent="1" name="sys">
+    <schema id="7" parent="1" name="sys">
       <Collation>utf8_general_ci</Collation>
     </schema>
-    <schema id="9" parent="1" name="wookieedata">
+    <schema id="8" parent="1" name="wookieedata">
+      <Collation>latin1_swedish_ci</Collation>
+    </schema>
+    <schema id="9" parent="1" name="world">
       <Collation>latin1_swedish_ci</Collation>
     </schema>
     <collation id="10" parent="1" name="armscii8_bin">
@@ -921,295 +917,5 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="232" parent="6" name="account"/>
-    <table id="233" parent="6" name="event"/>
-    <table id="234" parent="6" name="place"/>
-    <table id="235" parent="6" name="placetable"/>
-    <table id="236" parent="6" name="userorder"/>
-    <table id="237" parent="6" name="userorder_account"/>
-    <column id="238" parent="232" name="accountType">
-      <Position>1</Position>
-      <DataType>varchar(31)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="239" parent="232" name="id">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="240" parent="232" name="email">
-      <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="241" parent="232" name="firstName">
-      <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="242" parent="232" name="isAccountNonExpired">
-      <Position>5</Position>
-      <DataType>bit(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="243" parent="232" name="isAccountNonLocked">
-      <Position>6</Position>
-      <DataType>bit(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="244" parent="232" name="isCredentialsNonExpired">
-      <Position>7</Position>
-      <DataType>bit(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="245" parent="232" name="isEnabled">
-      <Position>8</Position>
-      <DataType>bit(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="246" parent="232" name="lastName">
-      <Position>9</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="247" parent="232" name="password">
-      <Position>10</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="248" parent="232" name="role">
-      <Position>11</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="249" parent="232" name="token">
-      <Position>12</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="250" parent="232" name="username">
-      <Position>13</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="251" parent="232" name="place_placeId">
-      <Position>14</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="252" parent="232" name="FKmn26ywp8cfl3177pegbpmwo37">
-      <ColNames>place_placeId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="253" parent="232" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="254" parent="232" name="FKmn26ywp8cfl3177pegbpmwo37">
-      <ColNames>place_placeId</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>place</RefTableName>
-      <RefColNames>placeId</RefColNames>
-    </foreign-key>
-    <column id="255" parent="233" name="eventId">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="256" parent="233" name="date">
-      <Position>2</Position>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="257" parent="233" name="name">
-      <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="258" parent="233" name="place_placeId">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="259" parent="233" name="FKtqia4glrjglsshpedpy0g5u17">
-      <ColNames>place_placeId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="260" parent="233" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>eventId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="261" parent="233" name="FKtqia4glrjglsshpedpy0g5u17">
-      <ColNames>place_placeId</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>place</RefTableName>
-      <RefColNames>placeId</RefColNames>
-    </foreign-key>
-    <column id="262" parent="234" name="placeId">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="263" parent="234" name="about">
-      <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="264" parent="234" name="address">
-      <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="265" parent="234" name="city">
-      <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="266" parent="234" name="name">
-      <Position>5</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="267" parent="234" name="specification">
-      <Position>6</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="268" parent="234" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>placeId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="269" parent="235" name="tableId">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="270" parent="235" name="capacity">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="271" parent="235" name="place_placeId">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="272" parent="235" name="FK69pbs4fo1vf4hcm7q9l4yyrl1">
-      <ColNames>place_placeId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="273" parent="235" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>tableId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="274" parent="235" name="FK69pbs4fo1vf4hcm7q9l4yyrl1">
-      <ColNames>place_placeId</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>place</RefTableName>
-      <RefColNames>placeId</RefColNames>
-    </foreign-key>
-    <column id="275" parent="236" name="orderId">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="276" parent="236" name="end">
-      <Position>2</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="277" parent="236" name="start">
-      <Position>3</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="278" parent="236" name="placeTable_tableId">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="279" parent="236" name="user_id">
-      <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="280" parent="236" name="FKmm025yg5y1e0wptags4r9m8ai">
-      <ColNames>placeTable_tableId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="281" parent="236" name="FKslyqdfx5dxdk19u5yh9y40986">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="282" parent="236" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>orderId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="283" parent="236" name="FKmm025yg5y1e0wptags4r9m8ai">
-      <ColNames>placeTable_tableId</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>placetable</RefTableName>
-      <RefColNames>tableId</RefColNames>
-    </foreign-key>
-    <foreign-key id="284" parent="236" name="FKslyqdfx5dxdk19u5yh9y40986">
-      <ColNames>user_id</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>account</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="285" parent="237" name="userOrders_orderId">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="286" parent="237" name="managers_id">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="287" parent="237" name="FKbgp7r2krxdpnwbkpij2l6j5m1">
-      <ColNames>userOrders_orderId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="288" parent="237" name="FKm94vfamec10p0saohjls6cnkm">
-      <ColNames>managers_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <foreign-key id="289" parent="237" name="FKbgp7r2krxdpnwbkpij2l6j5m1">
-      <ColNames>userOrders_orderId</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>userorder</RefTableName>
-      <RefColNames>orderId</RefColNames>
-    </foreign-key>
-    <foreign-key id="290" parent="237" name="FKm94vfamec10p0saohjls6cnkm">
-      <ColNames>managers_id</ColNames>
-      <RefSchemaName>projectdatabase</RefSchemaName>
-      <RefTableName>account</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
   </database-model>
 </dataSource>

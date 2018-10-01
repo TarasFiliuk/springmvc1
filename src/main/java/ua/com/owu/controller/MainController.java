@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.com.owu.models.*;
 import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.service.mailService.MailService;
@@ -20,6 +21,9 @@ import ua.com.owu.utils.TokenUtils;
 import ua.com.owu.utils.AccountValidator;
 
 import javax.mail.MessagingException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -99,7 +103,24 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String home(Model model) {
+        String path = System.getProperty("user.home")
+                + File.separator
+                + "IdeaProjects"
+                + File.separator
+                + "springmvc1"
+                + File.separator
+                + "pic"
+                + File.separator;
+
+        File file = new File(path);
+        File[] files= file.listFiles();
+        List<String> strings = new ArrayList<>();
+        for (File file1 : files) {
+            strings.add("/pic/"+file1.getName());
+        }
+
+        model.addAttribute("images",strings);
         return "index";
     }
 
@@ -127,31 +148,28 @@ public class MainController {
     }
 
 
-    //AdminController
-    @GetMapping("/admin/page")
-    String adminPage(Model model) {
+    @PostMapping("/upload")
+    String upload(@RequestParam MultipartFile file) throws IOException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        model.addAttribute("adminName", name);
+        String path = System.getProperty("user.home")
+                + File.separator
+                + "IdeaProjects"
+                + File.separator
+                + "springmvc1"
+                + File.separator
+                + "pic"
+                + File.separator;
 
+        File file1 = new File(path + file.getOriginalFilename());
+        try {
+            file.transferTo(file1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        List<Account> manager = accountService.findByAccountType("manager");
-        Stream<Account> stream = manager.stream();
-        List<Account> collect = stream.filter(account -> !account.isAccountNonLocked()).collect(Collectors.toList());
-        model.addAttribute("manager", collect);
-        return "admin";
+        return "redirect:/";
     }
 
-    @GetMapping("/admin/active/manager/id/{id}")
-    String confirm(
-            @PathVariable int id
-    ) {
-        Account managerAccount = accountService.findById(id);
-        managerAccount.setAccountNonLocked(true);
-        accountService.save(managerAccount);
-        return "redirect:/admin/page";
-    }
 
     //USERcONTROLLER
 
@@ -228,14 +246,10 @@ public class MainController {
     }
 
     @PostMapping("/admin/search")
-    public String searchCustom(Model model){
-    return null ;
+    public String searchCustom(Model model) {
+        return null;
     }
 
 
-
-
 }
-
-//for maincontroller
 

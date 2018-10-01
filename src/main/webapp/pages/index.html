@@ -28,6 +28,7 @@
 </div>
 
 
+
 <!--jkkjj-->
 <!--<p><a th:href="'/create/manager_page'" th:text="'create manager'"></a></p>-->
 
@@ -70,6 +71,19 @@
            value="${_csrf.token}"/>
 </form>
 -->
+
+<form th:action="@{/upload}"  method="post"  enctype="multipart/form-data">
+    <input type="file" name="file" placeholder="file">
+    <input type="submit" name="" placeholder="">
+
+
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+</form>
+
+
+
 <div th:if="${#strings.isEmpty(username)}">
     <h3>Hello</h3>
     <form th:action="@{/login}" method="post">
@@ -93,6 +107,12 @@
                value="${_csrf.token}"/>
     </form>
 </div>
+<div style="width: 200px; height: 200px">
+    <img th:each="image:${images}"
+            th:src="@{${image}}" width="300px" height="300px">
+</div>
+
+
 
 <script>
     function change() {

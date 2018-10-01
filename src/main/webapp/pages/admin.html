@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Admin</title>
 </head>
@@ -32,8 +33,8 @@
         </ul>
 
         <!--<form class="form-inline my-2 my-lg-0">-->
-            <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-            <!--<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>-->
+        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+        <!--<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>-->
         <!--</form>-->
         <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
             <input class="form-control mr-sm-2" type="submit" value="Logout">
@@ -57,7 +58,7 @@
                 <a class="nav-link" id="search-pills-tab" data-toggle="pill" href="#search-pills" role="tab"
                    aria-controls="search-pills" aria-selected="false">Account Search</a>
                 <a class="nav-link" id="create-admin-pills-tab" data-toggle="pill" href="#create-admin-pills" role="tab"
-                   aria-controls="create-admin-pills" aria-selected="false">Create admin</a>
+                   aria-controls="create-admin-pills" aria-selected="false">Create Account</a>
                 <a class="nav-link" id="edit-pills-tab" data-toggle="pill" href="#edit-pills" role="tab"
                    aria-controls="edit-pills" aria-selected="false">Editing</a>
             </div>
@@ -75,7 +76,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Place</th>
+                            <!--<th scope="col">Place</th>-->
                             <!--<th scope="col">Active</th>-->
                             <th scope="col">#</th>
                         </tr>
@@ -91,79 +92,52 @@
                                 <td th:text="${m.lastName}"></td>
                                 <td>La piezz</td>
                                 <!--<td th:text="${m.isAccountNonLocked}"></td>-->
-                                <td><a class="btn btn-success" th:href="'/admin/active/manager/id/' + ${m.id}">Confirm</a></td>
+                                <td><a class="btn btn-success"
+                                       th:href="'/admin/active/manager/id/' + ${m.id}">Confirm</a></td>
                             </tr>
                         </th:block>
                         <!--<tr>-->
-                            <!--<th scope="row">1</th>-->
-                            <!--<td>Manager</td>-->
-                            <!--<td>man123</td>-->
-                            <!--<td>@mdo</td>-->
-                            <!--<td>John</td>-->
-                            <!--<td>Smith</td>-->
-                            <!--<td>La piezz</td>-->
-                            <!--<td><a class="btn btn-success" href="">Confirm</a></td>-->
+                        <!--<th scope="row">1</th>-->
+                        <!--<td>Manager</td>-->
+                        <!--<td>man123</td>-->
+                        <!--<td>@mdo</td>-->
+                        <!--<td>John</td>-->
+                        <!--<td>Smith</td>-->
+                        <!--<td>La piezz</td>-->
+                        <!--<td><a class="btn btn-success" href="">Confirm</a></td>-->
                         <!--</tr>-->
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane fade" id="search-pills" role="tabpanel" aria-labelledby="search-pills-tab">
-                    <form>
+                    <form th:action="@{/admin/search/account}" method="post">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
-                                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                    <option selected>Account type</option>
-                                    <option value="manager">Manager</option>
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
+                            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="role" >
+                            <option value="" selected>Account type</option>
+                            <option value="ROLE_MANAGER">Manager</option>
+                            <option value="ROLE_USER">User</option>
+                            <option value="ROLE_ADMIN">Admin</option>
+                            </select>
                             </div>
                             <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input type="text" class="form-control" placeholder="Username" name="username">
                             </div>
                             <div class="col-auto my-1">
-                                <input type="email" class="form-control" placeholder="Email">
-                            </div>
-<!--
-                            <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="First name">
-                            </div>
-                            <div class="col-auto my-1">
-                                <input type="text" class="form-control" placeholder="Last name">
-                            </div>
--->
-                        </div>
-                        <div class="form-row align-items-center">
-                            <div class="col-auto my-1">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1">
-                                    <label class="custom-control-label" for="customControlAutosizing1">Account Non
-                                        Expired</label>
-                                </div>
-                            </div>
-                            <div class="col-auto my-1">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
-                                    <label class="custom-control-label" for="customControlAutosizing2">Account Non
-                                        Locked</label>
-                                </div>
-                            </div>
-                            <div class="col-auto my-1">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing3">
-                                    <label class="custom-control-label" for="customControlAutosizing3">Credentials Non
-                                        Expired</label>
-                                </div>
-                            </div>
-                            <div class="col-auto my-1">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing4">
-                                    <label class="custom-control-label" for="customControlAutosizing4">Enabled</label>
-                                </div>
+                                <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
                         </div>
-
+                        <!--checkboxes-->
+                        <!--<div class="form-row align-items-center">-->
+                            <!--<div class="col-auto my-1">-->
+                                <!--<div class="custom-control custom-checkbox mr-sm-2">-->
+                                    <!--<input type="checkbox" class="custom-control-input" id="customControlAutosizing1">-->
+                                    <!--<label class="custom-control-label" for="customControlAutosizing1">Account Non-->
+                                        <!--Expired</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="my-1">
                             <button type="submit" class="btn btn-success">Search</button>
                         </div>
@@ -174,52 +148,35 @@
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Role</th>
                             <th scope="col">Username</th>
                             <th scope="col">Email</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Non Expired</th>
-                            <th scope="col">Enabled</th>
-                            <th scope="col">Non Locked</th>
-                            <th scope="col">Credentials Non expired</th>
+                            <!--<th scope="col">Place</th>-->
+                            <th scope="col">Edit?</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Manager</td>
-                            <td>man123</td>
-                            <td>@mdo</td>
-                            <td>John</td>
-                            <td>Smith</td>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" disabled>
-                                </div>
-                            </td>
-                        </tr>
+                        <th:block th:each="ac:${accounts}">
+                            <tr>
+                                <th scope="row" th:text="${ac.id}"></th>
+                                <td th:text="${ac.accountType}"></td>
+                                <td th:text="${ac.role}"></td>
+                                <td th:text="${ac.username}"></td>
+                                <td th:text="${ac.email}"></td>
+                                <td th:text="${ac.firstName}"></td>
+                                <td th:text="${ac.lastName}"></td>
+                                <!--<td th:text="${ac.place}"></td>-->
+                                <td><a th:href=@{'/update/'+${ac.id}}>UPDATE</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane fade" id="create-admin-pills" role="tabpanel"
                      aria-labelledby="create-admin-pills-tab">
-                    <form>
+                    <form th:action="@{/save}" method="post" id="form">
                         <div class="form-group row">
                             <label for="username" class="col-sm-2 col-form-label">Username*</label>
                             <div class="col-sm-10">
@@ -227,6 +184,34 @@
                                        placeholder="Username" required>
                             </div>
                         </div>
+
+
+                        <div class="form-group row">
+                            <label for="role" class="col-sm-2 col-form-label">Role*</label>
+                            <div class="col-sm-10">
+                                <select type="text" class="form-control" name="role" id="role"
+                                        placeholder="Role" required>
+                                    <option value="ROLE_USER">ROLE_USER</option>
+                                    <option value="ROLE_MANAGER">ROLE_MANAGER</option>
+                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="AccountType" class="col-sm-2 col-form-label">Account type*</label>
+                            <div class="col-sm-10">
+                                <select type="text" class="form-control" name="accountType" id="AccountType"
+                                        placeholder="AccountType" required>
+                                    <option value="user" data-action="/admin/saveUser">user</option>
+                                    <option value="manager" data-action="/admin/saveManager">manager</option>
+                                    <option value="admin" data-action="/admin/saveAdmin">admin</option>
+                                </select>
+                            </div>
+                        </div>
+
+
                         <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">Email*</label>
                             <div class="col-sm-10">
@@ -234,6 +219,27 @@
                                        required>
                             </div>
                         </div>
+
+
+                        <div class="form-group row">
+                            <label for="firstName" class="col-sm-2 col-form-label">First name*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="firstName" id="firstName"
+                                       placeholder="First name"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lastName" class="col-sm-2 col-form-label">Last name*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="lastName" id="lastName"
+                                       placeholder="Last name"
+                                       required>
+                            </div>
+                        </div>
+
+
                         <div class="form-group row">
                             <label for="password" class="col-sm-2 col-form-label">Password*</label>
                             <div class="col-sm-10">
@@ -255,11 +261,60 @@
                         <!--</div>-->
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Create admin</button>
+                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Create account</button>
                             </div>
                         </div>
+
+                        <input type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
+
+
                     </form>
                 </div>
+                <!--<div class="tab-pane fade" id="create-admin-pills" role="tabpanel"-->
+                <!--aria-labelledby="create-admin-pills-tab">-->
+                <!--<form>-->
+                <!--<div class="form-group row">-->
+                <!--<label for="username" class="col-sm-2 col-form-label">Username*</label>-->
+                <!--<div class="col-sm-10">-->
+                <!--<input type="text" class="form-control" name="username" id="username"-->
+                <!--placeholder="Username" required>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<label for="email" class="col-sm-2 col-form-label">Email*</label>-->
+                <!--<div class="col-sm-10">-->
+                <!--<input type="email" class="form-control" name="email" id="email" placeholder="Email"-->
+                <!--required>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<label for="password" class="col-sm-2 col-form-label">Password*</label>-->
+                <!--<div class="col-sm-10">-->
+                <!--<input type="password" name="password" class="form-control" id="password"-->
+                <!--placeholder="Password" required>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="form-group row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label for="firstName" class="col-sm-2 col-form-label">First name</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-10">&ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="password" name="password" class="form-control" id="firstName" placeholder="Enter your first name">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="form-group row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label for="lastName" class="col-sm-2 col-form-label">Last name</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-10">&ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="password" name="password" class="form-control" id="lastName" placeholder="Enter your last name">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-sm-10">-->
+                <!--<button type="submit" class="btn btn-success px-4 py-2 my-3">Create admin</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</form>-->
+                <!--</div>-->
                 <div class="tab-pane fade" id="edit-pills" role="tabpanel" aria-labelledby="edit-pills-tab">
                     <div class="accordion" id="accordionExample">
                         <div class="card">
@@ -313,7 +368,8 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
+                                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Update
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -370,48 +426,54 @@
                                             </div>
                                         </div>
                                         <div>
-                                        <div>
-                                        <button class="btn btn-outline-success  px-4 py-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                           Edit place
-                                        </button>
-                                        </div>
-                                        <div class="collapse" id="collapseExample">
-                                            <div class="m-3">
-                                                <div class="form-group row">
-                                                    <label for="pName" class="col-sm-3 col-form-label">Name</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" name="name" class="form-control"
-                                                               id="pName" placeholder="Enter place`s name">
+                                            <div>
+                                                <button class="btn btn-outline-success  px-4 py-2" type="button"
+                                                        data-toggle="collapse" data-target="#collapseExample"
+                                                        aria-expanded="false" aria-controls="collapseExample">
+                                                    Edit place
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="collapseExample">
+                                                <div class="m-3">
+                                                    <div class="form-group row">
+                                                        <label for="pName" class="col-sm-3 col-form-label">Name</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="name" class="form-control"
+                                                                   id="pName" placeholder="Enter place`s name">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="pAddress" class="col-sm-3 col-form-label">Address</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" name="name" class="form-control"
-                                                               id="pAddress" placeholder="Enter place`s address">
+                                                    <div class="form-group row">
+                                                        <label for="pAddress"
+                                                               class="col-sm-3 col-form-label">Address</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="name" class="form-control"
+                                                                   id="pAddress" placeholder="Enter place`s address">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="pCity" class="col-sm-3 col-form-label">City</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" name="name" class="form-control"
-                                                               id="pCity" placeholder="Enter place`s city">
+                                                    <div class="form-group row">
+                                                        <label for="pCity" class="col-sm-3 col-form-label">City</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="name" class="form-control"
+                                                                   id="pCity" placeholder="Enter place`s city">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="pSpecification" class="col-sm-3 col-form-label">Specification</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" name="name" class="form-control"
-                                                               id="pSpecification" placeholder="Enter place`s specification">
+                                                    <div class="form-group row">
+                                                        <label for="pSpecification" class="col-sm-3 col-form-label">Specification</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="name" class="form-control"
+                                                                   id="pSpecification"
+                                                                   placeholder="Enter place`s specification">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-success px-4 py-2 my-3">Update</button>
+                                            <div class="form-group row">
+                                                <div class="col-sm-10">
+                                                    <button type="submit" class="btn btn-success px-4 py-2 my-3">
+                                                        Update
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </form>
                                 </div>
@@ -423,6 +485,19 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    (function () {
+        var theForm = document.getElementById('form');
+        var theSelector = document.getElementById('AccountType');
+
+        theSelector.onchange = function () {
+            theForm.action = theSelector[theSelector.selectedIndex].getAttribute('data-action');
+        }
+    })();
+</script>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
