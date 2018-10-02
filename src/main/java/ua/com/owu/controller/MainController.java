@@ -104,23 +104,23 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        String path = System.getProperty("user.home")
-                + File.separator
-                + "IdeaProjects"
-                + File.separator
-                + "springmvc1"
-                + File.separator
-                + "pic"
-                + File.separator;
-
-        File file = new File(path);
-        File[] files= file.listFiles();
-        List<String> strings = new ArrayList<>();
-        for (File file1 : files) {
-            strings.add("/pic/"+file1.getName());
-        }
-
-        model.addAttribute("images",strings);
+//        String path = System.getProperty("user.home")
+//                + File.separator
+//                + "IdeaProjects"
+//                + File.separator
+//                + "springmvc1"
+//                + File.separator
+//                + "pic"
+//                + File.separator;
+//
+//        File file = new File(path);
+//        File[] files= file.listFiles();
+//        List<String> strings = new ArrayList<>();
+//        for (File file1 : files) {
+//            strings.add("/pic/"+file1.getName());
+//        }
+//
+//        model.addAttribute("images",strings);
         return "index";
     }
 
