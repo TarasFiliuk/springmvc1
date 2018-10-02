@@ -170,7 +170,7 @@
                         </thead>
                         <tbody id="finded_users">
                         <tr>
-                            <th scope="row">1</th>
+                            <th id="show_id" scope="row">1</th>
                             <td id="show_role">роль</td>
                             <td id="show_login">логін</td>
                             <td id="show_email">мило</td>
@@ -224,18 +224,7 @@
                                        placeholder="Password" required>
                             </div>
                         </div>
-                        <!--<div class="form-group row">-->
-                        <!--<label for="firstName" class="col-sm-2 col-form-label">First name</label>-->
-                        <!--<div class="col-sm-10">-->
-                        <!--<input type="password" name="password" class="form-control" id="firstName" placeholder="Enter your first name">-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="form-group row">-->
-                        <!--<label for="lastName" class="col-sm-2 col-form-label">Last name</label>-->
-                        <!--<div class="col-sm-10">-->
-                        <!--<input type="password" name="password" class="form-control" id="lastName" placeholder="Enter your last name">-->
-                        <!--</div>-->
-                        <!--</div>-->
+
                         <div class="form-group row">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success px-4 py-2 my-3">Create admin</button>
@@ -419,13 +408,6 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script>
-    //id-шки в які треба всунути дату
-    // <td id="show_role"></td>
-    //     <td id="show_login"></td>
-    //     <td id="show_email"></td>
-    //     <td id="show_name"></td>
-    //     <td id="show_last_name"></td>
-
 
     $('#find_users').click( function () {
         var role = $('#inlineFormCustomSelect').val();
@@ -444,86 +426,60 @@
         if (login !== '') {
             lol.login = login;
         } else {
-            lol.login = 'null';
+            lol.login = 'false';
         }
         if (email !== ''){
             lol.email = email;
         } else {
-            lol.email = 'null';
+            lol.email = 'false';
         }
         if (first_name !== ''){
             lol.first_name = first_name;
         } else {
-            lol.first_name = 'null';
+            lol.first_name = 'false';
         }
         if (last_name !== ''){
             lol.last_name = last_name;
         } else {
-            lol.last_name = 'null';
+            lol.last_name = 'false';
         }
         if (acc_non_expired.is(":checked")) {
             lol.acc_non_expired = 'true';
         } else {
-            lol.acc_non_expired = 'null'
+            lol.acc_non_expired = 'false'
         }
         if (acc_non_locked.is(":checked")) {
             lol.acc_non_locked = 'true';
         } else {
-            lol.acc_non_locked = 'null'
+            lol.acc_non_locked = 'false'
         }
         if (credentials_non_expired.is(":checked")) {
             lol.credentials_non_expired = 'true';
         } else {
-            lol.credentials_non_expired = 'null'
+            lol.credentials_non_expired = 'false'
         }
         if (enabled.is(":checked")) {
             lol.enabled = 'true';
         } else {
-            lol.enabled = 'null'
+            lol.enabled = 'false'
         }
         var myJSON = JSON.stringify(lol);
         console.log(myJSON);
-        // $.post(
-        //     'тут має бути урла',
-        //     lol,
-        //     function (data) {
-        //         console.log(data);
-        //     }
-        // );
+        $.post(
+            'тут має бути урла',
+            myJSON,
+            function (data) {
+                console.log(data);
+                $('#show_id').html = data.id;
+                $('#show_role').html = data.role;
+                $('#show_login').html = data.login;
+                $('#show_email').html = data.email;
+                $('#show_first_name').html = data.FirstName;
+                $('#show_last_name').html = data.LastName;
+            }
+        );
     });
 
-
-
-    // <tbody id="finded_users">
-    //     <tr>
-    //     <th scope="row">1</th>
-    //     <td id="show_role">роль</td>
-    //     <td id="show_login">логін</td>
-    //     <td id="show_email">мило</td>
-    //     <td id="show_name">ім'я</td>
-    // <td id="show_last_name">прізвище</td>
-    //     <td>
-    //     <div class="form-check">
-    //     <input class="form-check-input position-static" type="checkbox" disabled>
-    // </div>
-    // </td>
-    // <td>
-    // <div class="form-check">
-    //     <input class="form-check-input position-static" type="checkbox" disabled>
-    // </div>
-    // </td>
-    // <td>
-    // <div class="form-check">
-    //     <input class="form-check-input position-static" type="checkbox" disabled>
-    // </div>
-    // </td>
-    // <td>
-    // <div class="form-check">
-    //     <input class="form-check-input position-static" type="checkbox" disabled>
-    // </div>
-    // </td>
-    // </tr>
-    // </tbody>
 </script>
 </body>
 </html>
