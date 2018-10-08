@@ -33,12 +33,12 @@ public class MailServiceImpl implements MailService {
     public void sendConfirmMessage(String email, User user) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message);
-        messageHelper.setText("<h2>Nice to meet you "+ user.getFirstName()+"!</h2><hr>" +
+        messageHelper.setText("<h2>Nice to meet you "+ user.getUsername()+"!</h2><hr>" +
                 "<a style=\"display:block, background:green, height:100px\" href=\"http://localhost:8080/confirm/"+user.getToken() +"\">"+
                 "Please confirm your email!</a>", true);
         messageHelper.setSubject("Confirm your email!");
         messageHelper.setTo(email);
-//        mailSender.send(message);
+        mailSender.send(message);
         System.out.println("MAIL SENDED!!!");
     }
 

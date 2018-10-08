@@ -7,11 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ua.com.owu.models.Account;
-import ua.com.owu.models.Admin;
-import ua.com.owu.models.Manager;
-import ua.com.owu.models.User;
+import ua.com.owu.models.*;
 import ua.com.owu.service.accountService.AccountService;
+import ua.com.owu.service.placeService.PlaceService;
 import ua.com.owu.utils.AccountEditor;
 
 import java.util.List;
@@ -27,9 +25,13 @@ public class AdminController {
     private final
     AccountEditor accountEditor;
 
-    public AdminController(AccountService accountService, AccountEditor accountEditor) {
+    private final
+    PlaceService placeService;
+
+    public AdminController(AccountService accountService, AccountEditor accountEditor, PlaceService placeService) {
         this.accountService = accountService;
         this.accountEditor = accountEditor;
+        this.placeService = placeService;
     }
 
 
@@ -59,7 +61,7 @@ public class AdminController {
 
 
     @PostMapping("/admin/saveUser")
-    String adminSaveUser(User user){
+    String adminSaveUser(User user) {
         accountEditor.setValue(user);
         accountService.save(user);
         return "redirect:/admin/page";
@@ -67,7 +69,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/saveManager")
-    String adminSaveUser(Manager manager){
+    String adminSaveUser(Manager manager) {
         accountEditor.setValue(manager);
         accountService.save(manager);
         return "redirect:/admin/page";
@@ -75,14 +77,21 @@ public class AdminController {
     }
 
     @PostMapping("/admin/saveAdmin")
-    String adminSaveUser(Admin admin){
+    String adminSaveUser(Admin admin) {
         accountEditor.setValue(admin);
         accountService.save(admin);
         return "redirect:/admin/page";
 
     }
 
-
-
+    @GetMapping("/savePl")
+    public String savePlase() {
+        return "adminPage";
+    }
+    @PostMapping("/savePlace")
+    public String saveplace(Place place) {
+        placeService.save(place);
+        return "redirect:/savePl";
+    }
 
 }
