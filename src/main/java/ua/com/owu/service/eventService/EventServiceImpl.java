@@ -48,8 +48,7 @@ public class EventServiceImpl implements EventService {
     public Event update(int id, Event newEvent) {
         Event eventDAOOne = eventDAO.findOne(id);
         BeanUtils.copyProperties(newEvent, eventDAOOne);
-        Event save = eventDAO.save(eventDAOOne);
-        return save;
+        return eventDAO.save(eventDAOOne);
     }
 
     @Override
@@ -69,6 +68,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> findAll() {
-        return null;
+        return eventDAO.findAll();
     }
 }
