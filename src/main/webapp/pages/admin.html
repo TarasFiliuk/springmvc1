@@ -176,7 +176,9 @@
                 </div>
                 <div class="tab-pane fade" id="create-admin-pills" role="tabpanel"
                      aria-labelledby="create-admin-pills-tab">
+
                     <form th:action="@{/save}" method="post" id="form">
+
                         <div class="form-group row">
                             <label for="username" class="col-sm-2 col-form-label">Username*</label>
                             <div class="col-sm-10">
@@ -197,7 +199,6 @@
                                 </select>
                             </div>
                         </div>
-
 
                         <div class="form-group row">
                             <label for="AccountType" class="col-sm-2 col-form-label">Account type*</label>
@@ -224,18 +225,18 @@
                         <div class="form-group row">
                             <label for="firstName" class="col-sm-2 col-form-label">First name*</label>
                             <div class="col-sm-10">
+
                                 <input type="text" class="form-control" name="firstName" id="firstName"
-                                       placeholder="First name"
-                                       required>
+                                       placeholder="First name" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="lastName" class="col-sm-2 col-form-label">Last name*</label>
                             <div class="col-sm-10">
+
                                 <input type="text" class="form-control" name="lastName" id="lastName"
-                                       placeholder="Last name"
-                                       required>
+                                       placeholder="Last name" required>
                             </div>
                         </div>
 
@@ -272,7 +273,48 @@
 
                     </form>
                 </div>
-                <!--<div class="tab-pane fade" id="create-admin-pills" role="tabpanel"-->
+                     <!--aria-labelledby="create-admin-pills-tab">-->
+                    <!--<form>-->
+                        <!--<div class="form-group row">-->
+                            <!--<label for="username" class="col-sm-2 col-form-label">Username*</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<input type="text" class="form-control" name="username" id="username"-->
+                                       <!--placeholder="Username" required>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group row">-->
+                            <!--<label for="email" class="col-sm-2 col-form-label">Email*</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<input type="email" class="form-control" name="email" id="email" placeholder="Email"-->
+                                       <!--required>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group row">-->
+                            <!--<label for="password" class="col-sm-2 col-form-label">Password*</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<input type="password" name="password" class="form-control" id="password"-->
+                                       <!--placeholder="Password" required>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="form-group row">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="firstName" class="col-sm-2 col-form-label">First name</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="col-sm-10">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="password" name="password" class="form-control" id="firstName" placeholder="Enter your first name">&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="form-group row">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="lastName" class="col-sm-2 col-form-label">Last name</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="col-sm-10">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="password" name="password" class="form-control" id="lastName" placeholder="Enter your last name">&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<div class="form-group row">-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<button type="submit" class="btn btn-success px-4 py-2 my-3">Create admin</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+
                 <!--aria-labelledby="create-admin-pills-tab">-->
                 <!--<form>-->
                 <!--<div class="form-group row">-->
@@ -488,11 +530,11 @@
 
 
 <script>
-    (function () {
+    (function() {
         var theForm = document.getElementById('form');
         var theSelector = document.getElementById('AccountType');
 
-        theSelector.onchange = function () {
+        theSelector.onchange = function() {
             theForm.action = theSelector[theSelector.selectedIndex].getAttribute('data-action');
         }
     })();

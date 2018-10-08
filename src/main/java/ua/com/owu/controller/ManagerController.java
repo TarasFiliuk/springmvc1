@@ -131,20 +131,20 @@ public class ManagerController {
         return "redirect:/manager-account";
     }
 
+    //зміна паролю
     @PostMapping("/manager-account/update/password")
     public String updateManagerPassword(@RequestParam String password, @RequestParam String oldPassword,  Model model) {
         Manager manager = (Manager) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (passwordEncoder.matches(oldPassword, manager.getPassword())) {
+        if (passwordEncoder.matches(oldPassword, manager.getPassword())) {//перевірка чи співпадають старий пароль та дані введені в поле старий пароль
                 manager.setPassword(password);
                 accountEditor.setValue(manager);
-                accountService.save(manager);
+                accountService.save(manager); //зберігаємо юзера з новим паролем
                 model.addAttribute("success", "Your password has been changed");
             }
          else {
             model.addAttribute("oldPasswordError", "Wrong password!");
 
         }
-
 
         return "redirect:/manager-account";
     }

@@ -1,9 +1,12 @@
 package ua.com.owu.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -11,16 +14,16 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int eventId; // G S
-
+    @Column
     private String name; // G S
-
-    @Column(nullable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime date; // G S
+    @Column
+    private Date date; // G S
+    @Column
+    private Time time; // G S
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private
-    Place place; // G S
+    @JsonIgnore
+    private Place place; // G S
 
     public int getEventId() {
         return eventId;
@@ -46,12 +49,20 @@ public class Event {
         this.place = place;
     }
 
-    public DateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     @Override
@@ -76,7 +87,8 @@ public class Event {
                 "eventId=" + eventId +
                 ", name='" + name + '\'' +
                 ", date=" + date +
-                ", place=" + place +
-                '}';
+                ", time="  + time +
+        '}';
     }
 }
+

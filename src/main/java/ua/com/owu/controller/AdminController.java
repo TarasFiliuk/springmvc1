@@ -1,5 +1,6 @@
 package ua.com.owu.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,12 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.owu.models.*;
+import ua.com.owu.models.Account;
+import ua.com.owu.models.Admin;
+import ua.com.owu.models.Manager;
+import ua.com.owu.models.User;
 import ua.com.owu.service.accountService.AccountService;
 import ua.com.owu.utils.AccountEditor;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -83,6 +86,7 @@ public class AdminController {
         return "redirect:/admin/page";
 
     }
+
 
 	@PostMapping("/admin/search/account")
 	public String adminSearch(Model model,
