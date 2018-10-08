@@ -1,13 +1,16 @@
 package ua.com.owu.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
+//@JsonIgnoreProperties("userOrders")
 @Entity
 @DiscriminatorValue("user")
 public class User extends Account{
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserOrder> userOrders; // G S
 

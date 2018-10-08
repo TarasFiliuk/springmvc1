@@ -1,5 +1,7 @@
 package ua.com.owu.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -68,7 +70,7 @@ public abstract class Account implements UserDetails {
         return authorities;
     }
 
-
+    @JsonIgnore
     private String password;
     @Override
     public String getPassword() {
@@ -78,7 +80,7 @@ public abstract class Account implements UserDetails {
         this.password = password;
     }
 
-
+    @Column(unique = true, nullable = false)
     private String username;
     @Override
     public String getUsername() {
@@ -88,7 +90,7 @@ public abstract class Account implements UserDetails {
         this.username = username;
     }
 
-
+//    @Column(unique = true)
     private String email;
     public String getEmail() {
         return email;
